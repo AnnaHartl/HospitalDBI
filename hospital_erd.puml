@@ -1,0 +1,19 @@
+@startuml
+Bed }|.u.|| Room
+Room }|.l.|| Floor
+Bed ||..o{ Bed_Patient
+Bed_Patient }|..|| Patient
+Patient ||..|{ Patient_MedicalStaff
+Patient_MedicalStaff <|.. Doctor
+Patient_MedicalStaff <|.. Nurse
+Person <|.. Patient_MedicalStaff
+Person <|.. Patient
+
+Patient ||..|{ Patient_Condition
+Condition ||.u.|{ Patient_Condition
+
+circle "Komposite Key (Zeit, Bed, Patient)"
+
+
+@enduml
+
