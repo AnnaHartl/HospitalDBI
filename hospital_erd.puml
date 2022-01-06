@@ -1,12 +1,13 @@
 @startuml
 Bed }|.u.|| Room
-Room }|.l.|| Floor
+Room }|.l.|| Station
 Bed ||..o{ Bed_Patient
 Bed_Patient }|..|| Patient
 Patient ||..|{ Patient_MedicalStaff
-Patient_MedicalStaff <|.. Doctor
-Patient_MedicalStaff <|.. Nurse
-Person <|.. Patient_MedicalStaff
+MedicalStaff ||..|{ Patient_MedicalStaff
+MedicalStaff <|.. Doctor
+MedicalStaff <|.. Nurse
+Person <|.. MedicalStaff
 Person <|.. Patient
 
 Patient ||..|{ Patient_Condition
