@@ -13,8 +13,51 @@ Person <|.. Patient
 Patient ||..|{ Patient_Condition
 Condition ||.u.|{ Patient_Condition
 
-circle "Komposite Key (Zeit, Bed, Patient)"
+circle "Komposite Key bei Assotiationstabellen"
 
+class Room {
+ strong
+}
+
+class Bed {
+ weak
+}
+
+class Station {
+ weak
+}
+
+class Bed_Patient {
+ weak
+}
+
+class Patient {
+ strong
+}
+
+class Patient_Condition {
+ weak
+}
+
+class Condition {
+ strong
+}
+
+class Doctor {
+ weak
+}
+
+class Nurse {
+ weak
+}
+
+class MedicalStaff {
+ strong
+}
+
+class Patient_MedicalStaff {
+ weak
+}
 
 @enduml
 
