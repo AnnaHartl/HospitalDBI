@@ -1,30 +1,20 @@
 package at.htl.entity;
 
+import at.htl.id.PatientConditionId;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class PatientCondition {
-    Patient patient;
-    Condition condition;
+    @EmbeddedId
+    PatientConditionId id;
 
-    public PatientCondition(Patient patient, Condition condition) {
-        this.patient = patient;
-        this.condition = condition;
+    public PatientConditionId getId() {
+        return id;
     }
 
-    public PatientCondition() {
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Condition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(Condition condition) {
-        this.condition = condition;
+    public void setId(PatientConditionId id) {
+        this.id = id;
     }
 }
