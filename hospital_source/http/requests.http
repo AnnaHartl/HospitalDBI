@@ -1,0 +1,13 @@
+### Patient Requests
+POST http://localhost:8080/patient/addPatient
+Content-Type: application/json
+
+{
+  "ssn": "8d879",
+  "firstName": "patient1",
+  "lastName": "plastname",
+  "conditions": []
+}
+
+###
+GET http://localhost:8080/patient/getAllPatients
