@@ -5,6 +5,7 @@ import at.htl.entity.Room;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -22,5 +23,12 @@ public class RoomResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Room> getAllRooms(){
         return roomRepository.getAllRooms();
+    }
+
+    @Path("findById/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Room getRoomById(@PathParam("id") Long id){
+        return roomRepository.findRoomById(id);
     }
 }
