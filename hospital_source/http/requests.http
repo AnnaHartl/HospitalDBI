@@ -11,3 +11,10 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/patient/getAllPatients
+
+### Room Requests
+GET http://localhost:8080/room/getAll
+
+###
+
+GET http://localhost:8080/room/findById/1

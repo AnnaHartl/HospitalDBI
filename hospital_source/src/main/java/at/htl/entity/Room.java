@@ -10,7 +10,6 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //region fields
     private int floorNumber;
     private int roomNumber;
     private String roomType;
@@ -19,9 +18,7 @@ public class Room {
 
     @OneToMany
     private List<Bed> beds = new ArrayList<>();
-    //endregion
 
-    //region constructors
     public Room(int floorNumber, int roomNumber, String roomType) {
         this.floorNumber = floorNumber;
         this.roomNumber = roomNumber;
@@ -31,9 +28,15 @@ public class Room {
     public Room() {
         
     }
-    //endregion
 
-    //region getter and setter
+    public void addBed(Room room, int bedNumber) {
+        Bed bed = new Bed();
+        bed.setRoom(this);
+        bed.setBedNumber(bedNumber);
+
+        this.beds.add(bed);
+    }
+
     public int getFloorNumber() {
         return floorNumber;
     }

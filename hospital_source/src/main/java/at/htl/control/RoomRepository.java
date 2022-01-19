@@ -4,6 +4,7 @@ import at.htl.entity.Room;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -19,10 +20,12 @@ public class RoomRepository {
                 .getResultList();
     }
 
+    @Transactional
     public void addRoom(Room room){
         entityManager.persist(room);
     }
 
+    @Transactional
     public void deleteRoom(Long id){
         entityManager.remove(findRoomById(id));
     }
@@ -33,6 +36,7 @@ public class RoomRepository {
                 .stream().findFirst().orElse(null);
     }
 
+    @Transactional
     public Room updateRoom(Room room){
         return entityManager.merge(room);
     }
