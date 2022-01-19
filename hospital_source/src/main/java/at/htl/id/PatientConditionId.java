@@ -6,6 +6,7 @@ import at.htl.entity.Patient;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class PatientConditionId implements Serializable {
@@ -29,5 +30,18 @@ public class PatientConditionId implements Serializable {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PatientConditionId that = (PatientConditionId) o;
+        return Objects.equals(patient, that.patient) && Objects.equals(condition, that.condition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(patient, condition);
     }
 }

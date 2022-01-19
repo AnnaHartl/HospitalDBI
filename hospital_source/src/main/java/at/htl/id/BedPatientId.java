@@ -1,4 +1,7 @@
-package at.htl.entity;
+package at.htl.id;
+
+import at.htl.entity.Bed;
+import at.htl.entity.Patient;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
