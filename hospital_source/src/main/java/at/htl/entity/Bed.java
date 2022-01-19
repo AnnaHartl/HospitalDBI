@@ -1,10 +1,18 @@
 package at.htl.entity;
 
+import javax.persistence.*;
+
+@Entity
 public class Bed {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     //region fields
     private int bedNumber;
+    @ManyToOne
     private Room room;
+
     //endregion
 
     //region constructors
@@ -34,6 +42,15 @@ public class Bed {
     public void setRoom(Room room) {
         this.room = room;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     //endregion
 
 }

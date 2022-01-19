@@ -1,9 +1,16 @@
 package at.htl.entity;
 
+import javax.persistence.*;
+
+@Entity
 public class BedPatient {
 
+    @EmbeddedId
+    private BedPatientId id;
     //region fields
+    @ManyToOne
     private Bed bed;
+    @ManyToOne
     private Patient patient;
     //endregion
 
@@ -34,5 +41,14 @@ public class BedPatient {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    public BedPatientId getId() {
+        return id;
+    }
+
+    public void setId(BedPatientId id) {
+        this.id = id;
+    }
+
     //endregion
 }

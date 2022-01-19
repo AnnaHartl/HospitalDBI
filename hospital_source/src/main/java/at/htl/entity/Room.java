@@ -1,11 +1,24 @@
 package at.htl.entity;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Room {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     //region fields
     private int floorNumber;
     private int roomNumber;
     private String roomType;
+    @ManyToOne
+    private Station station;
+
+    @OneToMany
+    private List<Bed> beds = new ArrayList<>();
     //endregion
 
     //region constructors
@@ -44,6 +57,31 @@ public class Room {
     public void setRoomType(String roomType) {
         this.roomType = roomType;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    public List<Bed> getBeds() {
+        return beds;
+    }
+
+    public void setBeds(List<Bed> beds) {
+        this.beds = beds;
+    }
+
     //endregion
 
 }
