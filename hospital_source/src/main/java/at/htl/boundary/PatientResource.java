@@ -26,12 +26,13 @@ public class PatientResource {
     @POST
     @Path("addPatient")
     public void addPatient(Patient patient){
+        System.out.println(patient.getFirstName());
         patientRepository.addPatient(patient);
     }
 
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @POST
+    @PATCH
     @Path("updatePatient")
     public Patient updatePatient(Patient patient){
         return patientRepository.updatePatient(patient);
@@ -45,9 +46,9 @@ public class PatientResource {
     }
 
     @Produces(MediaType.APPLICATION_JSON)
-    @DELETE
+    @GET
     @Path("getPatientById/{id}")
-    public Patient getPatientyId(@PathParam("id") Long id){
+    public Patient getPatientId(@PathParam("id") Long id){
         return patientRepository.findPatientById(id);
     }
 }

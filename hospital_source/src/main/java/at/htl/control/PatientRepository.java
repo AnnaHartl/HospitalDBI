@@ -5,6 +5,7 @@ import at.htl.entity.Patient;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -19,14 +20,17 @@ public class PatientRepository {
         return em.createQuery("select p from Patient p", Patient.class).getResultList();
     }
 
+    @Transactional
     public void addPatient(Patient patient){
         em.persist(patient);
     }
 
+    @Transactional
     public Patient updatePatient(Patient patient){
         return em.merge(patient);
     }
 
+    @Transactional
     public void deletePatient(Long id){
         Patient p = findPatientById(id);
         em.remove(p);
