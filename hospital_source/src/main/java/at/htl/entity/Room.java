@@ -12,7 +12,7 @@ public class Room {
     private Long id;
     private int floorNumber;
     private int roomNumber;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private RoomType roomType;
     @ManyToOne
     private Station station;
