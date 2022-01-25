@@ -2,6 +2,7 @@ package at.htl;
 
 import at.htl.control.RoomRepository;
 import at.htl.entity.Room;
+import at.htl.entity.RoomType;
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.StartupEvent;
 
@@ -17,8 +18,8 @@ public class InitBean {
     }
 
     public void Init(@Observes StartupEvent event){
-        Room room1 = new Room(10, 10, "BigRoom");
-        Room room2 = new Room(69, 69, "SmallRoom");
+        Room room1 = new Room(10, 10, new RoomType("BigRoom"));
+        Room room2 = new Room(69, 69, new RoomType("SmallRoom"));
 
         roomRepository.addRoom(room1);
         roomRepository.addRoom(room2);

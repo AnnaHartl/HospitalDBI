@@ -1,5 +1,17 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-1');
--- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-2');
--- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-3');
+-- Station Names from https://www.doh.wa.gov/ForPublicHealthandHealthcareProviders/HealthcareProfessionsandFacilities/HealthcareAssociatedInfections/HAIReports/TypesofHospitalUnits
+insert into station(name)
+    values ('Neonatal Intensive Care'),
+           ('Pediatric Intensive Care'),
+           ('Coronary Care and Cardiothoracic'),
+           ('Surgical Intensive Care'),
+           ('Medical Intensive Care'),
+           ('Long-term Intensive Care'),
+           ('Neonatal'),
+           ('Women and Infant Health'),
+           ('Pediatric'),
+           ('Post-critical'),
+           ('Oncology'),
+           ('Surgical'),
+           ('Medical'),
+           ('Rehabilitation Wards'),
+           ('Long-term Care Wards');
