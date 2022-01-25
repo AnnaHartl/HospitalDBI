@@ -15,8 +15,8 @@ public class Patient{
     private String firstName;
     private String lastName;
 
-    @OneToMany
-    private List<Condition> conditions;
+    @OneToMany(mappedBy = "")
+    private List<PatientCondition> conditions;
 
     public String getSsn() {
         return ssn;
