@@ -15,7 +15,7 @@ public class Patient{
     private String firstName;
     private String lastName;
 
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<PatientCondition> conditions;
 
     public String getSsn() {
