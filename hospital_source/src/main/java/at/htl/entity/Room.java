@@ -12,14 +12,15 @@ public class Room {
     private Long id;
     private int floorNumber;
     private int roomNumber;
-    private String roomType;
+    @ManyToOne
+    private RoomType roomType;
     @ManyToOne
     private Station station;
 
     @OneToMany
     private List<Bed> beds = new ArrayList<>();
 
-    public Room(int floorNumber, int roomNumber, String roomType) {
+    public Room(int floorNumber, int roomNumber, RoomType roomType) {
         this.floorNumber = floorNumber;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
@@ -53,11 +54,11 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public String getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 
