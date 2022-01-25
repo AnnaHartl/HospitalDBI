@@ -47,7 +47,6 @@ public class ConditionRepository {
     }
 
     public List<Condition> getConditionsForPatient(Patient p) {
-        //TODO
         return null;
     }
 }
