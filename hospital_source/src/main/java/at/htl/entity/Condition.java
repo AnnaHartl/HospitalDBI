@@ -1,25 +1,31 @@
 package at.htl.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Condition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name = "condition_id")
     private Long id;
 
     private String name;
     private String description;
-    private String symptoms;
 
-    public Condition(String name, String description, String symptoms) {
+    @ManyToMany
+    @JoinTable(
+            name = "symptom_condition",
+            joinColumns = @JoinColumn(name = "condition_id"),
+            inverseJoinColumns = @JoinColumn(name = "symptom_id")
+    )
+    Set<Symptom> symptoms = new HashSet<>();
+
+    public Condition(String name, String description) {
         this.name = name;
         this.description = description;
-        this.symptoms = symptoms;
     }
 
     public Condition() {
@@ -41,11 +47,11 @@ public class Condition {
         this.description = description;
     }
 
-    public String getSymptoms() {
+    public Set<Symptom> getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(String symptoms) {
+    public void setSymptoms(Set<Symptom> symptoms) {
         this.symptoms = symptoms;
     }
 
@@ -55,5 +61,11 @@ public class Condition {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void addSymptom(Symptom symptom, boolean addToSymptom){
+        symptoms.add(symptom);
+        if(addToSymptom)
+            symptom.addCondition(this, false);
     }
 }
