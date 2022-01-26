@@ -9,7 +9,6 @@ import java.util.Set;
 public class Symptom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "symptom_id")
     private Long id;
 
     public String Name;
