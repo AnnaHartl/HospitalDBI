@@ -15,6 +15,7 @@ public class Condition {
     private Long id;
 
     private String name;
+    @Column(length = 2048)
     private String description;
 
     @OneToMany(mappedBy = "id.condition", cascade = CascadeType.PERSIST)
