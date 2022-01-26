@@ -1,21 +1,3 @@
--- Station Names from https://www.doh.wa.gov/ForPublicHealthandHealthcareProviders/HealthcareProfessionsandFacilities/HealthcareAssociatedInfections/HAIReports/TypesofHospitalUnits
-insert into station(name)
-    values ('Neonatal Intensive Care'),
-           ('Pediatric Intensive Care'),
-           ('Coronary Care and Cardiothoracic'),
-           ('Surgical Intensive Care'),
-           ('Medical Intensive Care'),
-           ('Long-term Intensive Care'),
-           ('Neonatal'),
-           ('Women and Infant Health'),
-           ('Pediatric'),
-           ('Post-critical'),
-           ('Oncology'),
-           ('Surgical'),
-           ('Medical'),
-           ('Rehabilitation Wards'),
-           ('Long-term Care Wards');
-
 insert into symptom(name)
     values ('Runny or stuffy nose'),
            ('Sore throat'),
@@ -187,3 +169,42 @@ values (12,16),
        (12,45),
        (12,46),
        (12,47);
+
+-- Station Names from https://www.doh.wa.gov/ForPublicHealthandHealthcareProviders/HealthcareProfessionsandFacilities/HealthcareAssociatedInfections/HAIReports/TypesofHospitalUnits
+insert into station(name)
+values ('Neonatal Intensive Care'),
+       ('Pediatric Intensive Care'),
+       ('Coronary Care and Cardiothoracic'),
+       ('Surgical Intensive Care'),
+       ('Medical Intensive Care'),
+       ('Long-term Intensive Care'),
+       ('Neonatal'),
+       ('Women and Infant Health'),
+       ('Pediatric'),
+       ('Post-critical'),
+       ('Oncology'),
+       ('Surgical'),
+       ('Medical'),
+       ('Rehabilitation Wards'),
+       ('Long-term Care Wards');
+
+-- Page 14 - https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40164799/I_34_OeVE_OeNORM_E_8007_2007-12-01.pdf
+insert into roomtype(name)
+    values ('1-Bedroom'),
+           ('2-Bedroom'),
+           ('3-Bedroom'),
+           ('4-Bedroom'),
+           ('Practice room for human and dental medicine'),
+           ('Physical therapy room'),
+           ('Hydro therapy room'),
+           ('Massage room'),
+           ('Room for radiological diagnostics and therapy'),
+           ('Endoscopy room'),
+           ('Dialysis room'),
+           ('Intensive examination room'),
+           ('Delivery room'),
+           ('Operation prep room'),
+           ('Operating room'),
+           ('Recovery room'),
+           ('Intensive care surveillance rooms');
+
