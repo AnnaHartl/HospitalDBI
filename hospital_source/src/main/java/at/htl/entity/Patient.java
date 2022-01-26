@@ -4,16 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Patient{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@DiscriminatorValue("P")
+@PrimaryKeyJoinColumn(referencedColumnName = "person_id")
+public class Patient extends Person {
 
     private String ssn;
 
-    private String firstName;
-    private String lastName;
+    /*private String firstName;
+    private String lastName;*/
 
     @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<PatientCondition> conditions;
@@ -29,26 +27,26 @@ public class Patient{
     }
 
     public Long getId() {
-        return id;
+        return super.getId();
     }
 
     public void setId(Long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public String getFirstName() {
-        return firstName;
+        return super.getFirstName();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        super.setFirstName(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return super.getLastName();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        super.setLastName(lastName);
     }
 }
