@@ -1,20 +1,26 @@
 package at.htl.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Condition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "condition_id")
     private Long id;
 
     private String name;
     private String description;
 
+    @OneToMany(mappedBy = "id.condition", cascade = CascadeType.PERSIST)
+    private List<PatientCondition> patients;
+
+    @JsonbTransient
     @ManyToMany
     @JoinTable(
             name = "symptom_condition",
@@ -63,9 +69,9 @@ public class Condition {
         this.id = id;
     }
 
-    public void addSymptom(Symptom symptom, boolean addToSymptom){
+    public void addSymptom(Symptom symptom, boolean addToSymptom) {
         symptoms.add(symptom);
-        if(addToSymptom)
+        if (addToSymptom)
             symptom.addCondition(this, false);
     }
 }

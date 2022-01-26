@@ -9,6 +9,17 @@ Content-Type: application/json
   "conditions": []
 }
 
+### Condition Requests
+POST http://localhost:8080/condition/addCondition
+Content-Type: application/json
+
+{
+  "name": "schnupfen",
+  "description": "rinnende nase"
+}
+###
+GET http://localhost:8080/condition/getAllConditions
+
 ###
 GET http://localhost:8080/patient/getAllPatients
 
@@ -18,3 +29,8 @@ GET http://localhost:8080/room/getAll
 ###
 
 GET http://localhost:8080/room/findById/1
+
+###
+
+POST http://localhost:8080/patient/addConditionForPatient?condition=1&patient=1
+

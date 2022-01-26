@@ -1,6 +1,7 @@
 package at.htl.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Bed {
@@ -13,6 +14,8 @@ public class Bed {
     @ManyToOne
     private Room room;
 
+    @OneToMany(mappedBy = "id.bed", cascade = CascadeType.PERSIST)
+    private List<BedPatient> patients;
     //endregion
 
     //region constructors

@@ -17,6 +17,8 @@ public class Patient{
 
     @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<PatientCondition> conditions;
+    @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
+    private List<BedPatient> beds;
 
     public String getSsn() {
         return ssn;

@@ -1,7 +1,10 @@
 package at.htl.boundary;
 
+import at.htl.control.ConditionRepository;
 import at.htl.control.PatientRepository;
+import at.htl.entity.Condition;
 import at.htl.entity.Patient;
+import at.htl.entity.PatientCondition;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,9 +13,11 @@ import java.util.List;
 @Path("patient")
 public class PatientResource {
     private final PatientRepository patientRepository;
+    private final ConditionRepository conditionRepository;
 
-    public PatientResource(PatientRepository patientRepository) {
+    public PatientResource(PatientRepository patientRepository, ConditionRepository conditionRepository) {
         this.patientRepository = patientRepository;
+        this.conditionRepository = conditionRepository;
     }
 
     @Produces(MediaType.APPLICATION_JSON)
@@ -50,5 +55,22 @@ public class PatientResource {
     @Path("getPatientById/{id}")
     public Patient getPatientId(@PathParam("id") Long id){
         return patientRepository.findPatientById(id);
+    }
+
+
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    @Path("addConditionForPatient")
+    public PatientCondition addConditionForPatient(@QueryParam("patient") Long patientId,@QueryParam("condition") Long conditionId){
+        Patient p = patientRepository.findPatientById(patientId);
+        Condition c = conditionRepository.findConditionById(conditionId);
+
+        if(p == null)
+            return null;
+
+        if(c == null)
+            return null;
+
+       return patientRepository.addPatientCondition(p, c);
     }
 }

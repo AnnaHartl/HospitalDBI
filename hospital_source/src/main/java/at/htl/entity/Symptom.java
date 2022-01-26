@@ -1,5 +1,6 @@
 package at.htl.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ public class Symptom {
     private Long id;
 
     public String Name;
+    @JsonbTransient
     @ManyToMany(mappedBy = "symptoms")
     Set<Condition> conditions = new HashSet<>();
 

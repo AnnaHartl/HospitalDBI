@@ -1,6 +1,9 @@
 package at.htl.control;
 
+import at.htl.entity.Condition;
 import at.htl.entity.Patient;
+import at.htl.entity.PatientCondition;
+import at.htl.id.PatientConditionId;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -42,4 +45,13 @@ public class PatientRepository {
         return query.getSingleResult();
     }
 
+    @Transactional
+    public PatientCondition addPatientCondition(Patient p, Condition c) {
+        PatientConditionId id = new PatientConditionId();
+        id.setPatient(p);
+        id.setCondition(c);
+        PatientCondition pc = new PatientCondition();
+        pc.setId(id);
+        return em.merge(pc);
+    }
 }
