@@ -27,25 +27,6 @@ public class InitBean {
 
     @Transactional
     public void Init(@Observes StartupEvent event){
-        Room room1 = new Room(10, 10, new RoomType("BigRoom"));
-        Room room2 = new Room(69, 69, new RoomType("SmallRoom"));
-
-        roomRepository.addRoom(room1);
-        roomRepository.addRoom(room2);
-
-        Condition c = new Condition();
-        c.setDescription("c");
-        c.setName("c");
-
-        Symptom s = new Symptom();
-        s.setName("s");
-
-        //c.addSymptom(s,true);
-
-        em.persist(s);
-        em.persist(c);
-
-        c.addSymptom(s, true);
 
     }
 }
