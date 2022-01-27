@@ -8,10 +8,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(referencedColumnName = "person_id")
 public class Patient extends Person {
 
-    private String ssn;
-
-    /*private String firstName;
-    private String lastName;*/
 
     @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<PatientCondition> conditions;
@@ -19,11 +15,11 @@ public class Patient extends Person {
     private List<BedPatient> beds;
 
     public String getSsn() {
-        return ssn;
+        return super.getSsn();
     }
 
     public void setSsn(String ssn) {
-        this.ssn = ssn;
+        super.setSsn(ssn);
     }
 
     public Long getId() {

@@ -13,9 +13,18 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String ssn;
     private String firstName;
     private String lastName;
     private LocalDate dob;
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
 
     public String getFirstName() {
         return firstName;
