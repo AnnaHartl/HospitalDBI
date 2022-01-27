@@ -17,7 +17,7 @@ public class Room {
     @ManyToOne
     private Station station;
 
-    @OneToMany
+    @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
     private List<Bed> beds = new ArrayList<>();
 
     public Room(int floorNumber, int roomNumber, RoomType roomType) {
