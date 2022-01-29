@@ -15,6 +15,22 @@ public class BedPatient {
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
+    public LocalDateTime getFromDateTime() {
+        return fromDateTime;
+    }
+
+    public void setFromDateTime(LocalDateTime fromDateTime) {
+        this.fromDateTime = fromDateTime;
+    }
+
+    public LocalDateTime getToDateTime() {
+        return toDateTime;
+    }
+
+    public void setToDateTime(LocalDateTime toDateTime) {
+        this.toDateTime = toDateTime;
+    }
+
     public BedPatientId getId() {
         return id;
     }
