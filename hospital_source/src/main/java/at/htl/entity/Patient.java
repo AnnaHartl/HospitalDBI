@@ -8,11 +8,45 @@ import java.util.List;
 @PrimaryKeyJoinColumn(referencedColumnName = "person_id")
 public class Patient extends Person {
 
+    private double weight;
+    private double height;
 
     @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<PatientCondition> conditions;
     @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<BedPatient> beds;
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public List<PatientCondition> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(List<PatientCondition> conditions) {
+        this.conditions = conditions;
+    }
+
+    public List<BedPatient> getBeds() {
+        return beds;
+    }
+
+    public void setBeds(List<BedPatient> beds) {
+        this.beds = beds;
+    }
 
     public String getSsn() {
         return super.getSsn();
