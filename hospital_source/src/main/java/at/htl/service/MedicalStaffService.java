@@ -49,6 +49,14 @@ public class MedicalStaffService {
         return medicalStaffRepository.getAllStaff();
     }
 
+    public List<Doctor> getAllDoctors(){
+        return doctorRepository.getAllDoctors();
+    }
+
+    public List<Nurse> getAllNurses(){
+        return nurseRepository.getAllNurses();
+    }
+
     public MedicalStaff findMedicalStaffById(Long id){
         return medicalStaffRepository.findMedicalStaffById(id);
     }
