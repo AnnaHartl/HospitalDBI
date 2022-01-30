@@ -1,5 +1,6 @@
 package at.htl.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,11 @@ public class Room {
     private int roomNumber;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private RoomType roomType;
+    @JsonbTransient
     @ManyToOne
     private Station station;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
     private List<Bed> beds = new ArrayList<>();
 

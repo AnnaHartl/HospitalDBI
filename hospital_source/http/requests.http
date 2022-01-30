@@ -24,11 +24,11 @@ GET http://localhost:8080/condition/getAllConditions
 GET http://localhost:8080/patient/getAllPatients
 
 ### Room Requests
-GET http://localhost:8080/room/getAll
+GET http://localhost:8080/api/room/getAllRooms
 
 ###
 
-GET http://localhost:8080/room/findById/1
+GET http://localhost:8080/api/room/findRoomById/1
 
 ###
 

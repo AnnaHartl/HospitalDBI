@@ -1,18 +1,17 @@
 package at.htl.boundary;
 
 import at.htl.control.RoomRepository;
-import at.htl.entity.Patient;
 import at.htl.entity.Room;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("room")
-public class RoomResource {
+@Path("api/room")
+public class RoomApi {
     private final RoomRepository roomRepository;
 
-    public RoomResource(RoomRepository roomRepository) {
+    public RoomApi(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
 
