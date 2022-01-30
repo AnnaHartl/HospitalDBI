@@ -4,9 +4,11 @@ import at.htl.id.PatientConditionId;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "PATIENT_CONDITION")
 public class PatientCondition {
     @EmbeddedId
     PatientConditionId id;
