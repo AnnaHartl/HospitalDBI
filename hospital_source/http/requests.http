@@ -1,5 +1,5 @@
 ### Patient Requests
-POST http://localhost:8080/patient/addPatient
+POST http://localhost:8080/api/patient/addPatient
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Condition Requests
-POST http://localhost:8080/condition/addCondition
+POST http://localhost:8080/api/condition/addCondition
 Content-Type: application/json
 
 {
@@ -18,10 +18,10 @@ Content-Type: application/json
   "description": "rinnende nase"
 }
 ###
-GET http://localhost:8080/condition/getAllConditions
+GET http://localhost:8080/api/condition/getAllConditions
 
 ###
-GET http://localhost:8080/patient/getAllPatients
+GET http://localhost:8080/api/patient/getAllPatients
 
 ### Room Requests
 GET http://localhost:8080/api/room/getAllRooms
@@ -32,5 +32,5 @@ GET http://localhost:8080/api/room/findRoomById/1
 
 ###
 
-POST http://localhost:8080/patient/addConditionForPatient?condition=1&patient=1
+POST http://localhost:8080/api/patient/addConditionForPatient?condition=1&patient=1
 

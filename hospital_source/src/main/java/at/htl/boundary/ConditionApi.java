@@ -9,12 +9,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("condition")
-public class ConditionResource {
+@Path("api/condition")
+public class ConditionApi {
     private final ConditionRepository conditionRepository;
     private final PatientRepository patientRepository;
 
-    public ConditionResource(ConditionRepository conditionRepository, PatientRepository patientRepository) {
+    public ConditionApi(ConditionRepository conditionRepository, PatientRepository patientRepository) {
         this.conditionRepository = conditionRepository;
         this.patientRepository = patientRepository;
     }
