@@ -18,6 +18,7 @@ public class Condition {
     @Column(length = 2048)
     private String description;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "id.condition", cascade = CascadeType.PERSIST)
     private List<PatientCondition> patients;
 
