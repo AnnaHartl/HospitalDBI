@@ -1,8 +1,10 @@
 package at.htl.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue(value="D")
@@ -10,26 +12,29 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Doctor extends MedicalStaff{
 
     //region fields
-    private String specialization;
+    @JsonbTransient
+    @ManyToMany
+    @JoinTable(
+            name = "doctor_specialization",
+            joinColumns = @JoinColumn(name = "doctor_id"),
+            inverseJoinColumns = @JoinColumn(name = "specialization_id")
+    )
+    private Set<Specialization> specializations = new HashSet<>();
     //endregion
 
     //region constructors
-    public Doctor(String specialization) {
-        this.specialization = specialization;
-    }
-
     public Doctor() {
 
     }
     //endregion
 
     //region getter and setter
-    public String getSpecialization() {
-        return specialization;
-    }
 
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
     //endregion
+
+    public void addSpecialization(Specialization specialization, boolean addToSpecialization){
+        specializations.add(specialization);
+        if(addToSpecialization)
+            specialization.addDoctor(this, false);
+    }
 }
