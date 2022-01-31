@@ -4,6 +4,7 @@ import at.htl.control.ConditionRepository;
 import at.htl.control.PatientRepository;
 import at.htl.control.SymptomRepository;
 import at.htl.entity.Condition;
+import at.htl.entity.Symptom;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
@@ -41,8 +42,16 @@ public class ConditionService {
         return conditionRepository.findConditionById(id);
     }
 
-    public List<Condition> getConditionsForPatient(Long patient_id) {
-        var p = patientRepository.findPatientById(patient_id);
+    public List<Condition> getConditionsForPatient(Long patientId) {
+        var p = patientRepository.findPatientById(patientId);
         return conditionRepository.getConditionsForPatient(p);
+    }
+
+    public Symptom addSymptom(Long conditionId, Long symptomId) {
+        var c = conditionRepository.findConditionById(conditionId);
+        var s = symptomRepository.findSymptomById(symptomId);
+        c.addSymptom(s, true);
+        conditionRepository.updateCondition(c);
+        return s;
     }
 }

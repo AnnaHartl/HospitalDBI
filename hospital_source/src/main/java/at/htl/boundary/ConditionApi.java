@@ -3,6 +3,7 @@ package at.htl.boundary;
 import at.htl.control.ConditionRepository;
 import at.htl.entity.Condition;
 import at.htl.entity.Patient;
+import at.htl.entity.Symptom;
 import at.htl.service.ConditionService;
 
 import javax.ws.rs.*;
@@ -56,7 +57,13 @@ public class ConditionApi {
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     @Path("getConditionsForPatient/{id}")
-    public List<Condition> getConditionsForPatient(@PathParam("id") Long patient_id){
-        return conditionService.getConditionsForPatient(patient_id);
+    public List<Condition> getConditionsForPatient(@PathParam("id") Long patientId){
+        return conditionService.getConditionsForPatient(patientId);
+    }
+
+    @Produces({MediaType.APPLICATION_JSON})
+    @POST
+    public Symptom addSymptomToCondition(@QueryParam("condition_id") Long conditionId, @QueryParam("symptom_id") Long symptomId){
+        return conditionService.addSymptom(conditionId, symptomId);
     }
 }
