@@ -52,4 +52,10 @@ public class Symptom {
         if(addToCondition)
             condition.addSymptom(this,false);
     }
+
+    public void removeCondition(Condition condition, boolean removeFromCondition) {
+        conditions.remove(condition);
+        if(removeFromCondition)
+            condition.removeSymptom(this, false);
+    }
 }

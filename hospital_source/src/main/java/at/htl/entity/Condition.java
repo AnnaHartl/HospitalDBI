@@ -76,4 +76,10 @@ public class Condition {
         if (addToSymptom)
             symptom.addCondition(this, false);
     }
+
+    public void removeSymptom(Symptom symptom, boolean removeFromSymptom){
+        symptoms.remove(symptom);
+        if (removeFromSymptom)
+            symptom.removeCondition(this, false);
+    }
 }

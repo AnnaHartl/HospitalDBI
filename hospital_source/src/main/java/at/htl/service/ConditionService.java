@@ -52,6 +52,16 @@ public class ConditionService {
         var s = symptomRepository.findSymptomById(symptomId);
         c.addSymptom(s, true);
         conditionRepository.updateCondition(c);
+        symptomRepository.updateSymptom(s);
+        return s;
+    }
+
+    public Symptom deleteSymptom(Long conditionId, Long symptomId) {
+        var c = conditionRepository.findConditionById(conditionId);
+        var s = symptomRepository.findSymptomById(symptomId);
+        c.removeSymptom(s, true);
+        conditionRepository.updateCondition(c);
+        symptomRepository.updateSymptom(s);
         return s;
     }
 }

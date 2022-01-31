@@ -61,9 +61,17 @@ public class ConditionApi {
         return conditionService.getConditionsForPatient(patientId);
     }
 
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     @POST
+    @Path("addSymptom")
     public Symptom addSymptomToCondition(@QueryParam("condition_id") Long conditionId, @QueryParam("symptom_id") Long symptomId){
         return conditionService.addSymptom(conditionId, symptomId);
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @POST
+    @Path("deleteSymptom")
+    public Symptom deleteSymptomFromCondition(@QueryParam("condition_id") Long conditionId, @QueryParam("symptom_id") Long symptomId){
+        return conditionService.deleteSymptom(conditionId, symptomId);
     }
 }
