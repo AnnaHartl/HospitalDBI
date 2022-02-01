@@ -34,7 +34,7 @@ public class ConditionApi {
 
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @PATCH
+    @PUT
     @Path("updateCondition")
     public Condition updatePatient(Condition condition){
         return conditionService.updateCondition(condition);

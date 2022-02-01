@@ -2,6 +2,8 @@ package at.htl.service;
 
 import at.htl.control.BedRepository;
 import at.htl.entity.Bed;
+import at.htl.entity.BedPatient;
+import at.htl.entity.Patient;
 import at.htl.entity.Room;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -34,5 +36,9 @@ public class BedService {
 
     public Bed findBedById(Long id){
         return bedRepository.findBedById(id);
+    }
+
+    public BedPatient addBedForPatient(Bed b, Patient p) {
+        return bedRepository.addBedForPatient(b, p);
     }
 }

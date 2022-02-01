@@ -1,14 +1,14 @@
 package at.htl.control;
 
-import at.htl.entity.Condition;
-import at.htl.entity.Patient;
-import at.htl.entity.PatientCondition;
+import at.htl.entity.*;
 import at.htl.id.PatientConditionId;
+import at.htl.id.PatientMedicalStaffId;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -52,6 +52,16 @@ public class PatientRepository {
         id.setCondition(c);
         PatientCondition pc = new PatientCondition();
         pc.setId(id);
+        pc.setFromDateTime(LocalDateTime.now());
         return em.merge(pc);
+    }
+
+    public PatientMedicalStaff addMedicalStaffForPatient(Patient p, MedicalStaff m) {
+        PatientMedicalStaffId id = new PatientMedicalStaffId();
+        id.setPatient(p);
+        id.setMedicalStaff(m);
+        PatientMedicalStaff pm = new PatientMedicalStaff();
+        pm.setId(id);
+        return em.merge(pm);
     }
 }

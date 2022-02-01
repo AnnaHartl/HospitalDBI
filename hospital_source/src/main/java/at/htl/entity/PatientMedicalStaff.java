@@ -47,4 +47,12 @@ public class PatientMedicalStaff {
     public void setMedicalStaff(MedicalStaff medicalStaff) {
         id.setMedicalStaff(medicalStaff);
     }
+
+    public PatientMedicalStaffId getId() {
+        return id;
+    }
+
+    public void setId(PatientMedicalStaffId id) {
+        this.id = id;
+    }
 }
