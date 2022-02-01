@@ -1,6 +1,5 @@
-package at.htl.boundary;
+package at.htl.api;
 
-import at.htl.entity.Condition;
 import at.htl.entity.Symptom;
 import at.htl.service.SymptomService;
 
@@ -8,7 +7,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.List;
 
 @Path("api/symptom")
 public class SymptomApi {

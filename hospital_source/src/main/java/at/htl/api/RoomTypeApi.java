@@ -1,8 +1,6 @@
-package at.htl.boundary;
+package at.htl.api;
 
-import at.htl.entity.Room;
 import at.htl.entity.RoomType;
-import at.htl.service.RoomService;
 import at.htl.service.RoomTypeService;
 
 import javax.ws.rs.*;
