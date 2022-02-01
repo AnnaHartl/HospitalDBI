@@ -41,3 +41,7 @@ GET http://localhost:8080/api/bed/getAllBeds
 ###
 
 GET http://localhost:8080/api/station/getAllStations
+
+###
+
+GET http://localhost:8080/api/roomType/getAllRoomTypes
