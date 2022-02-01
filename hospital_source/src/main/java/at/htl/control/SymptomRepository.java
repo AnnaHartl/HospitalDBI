@@ -21,13 +21,16 @@ public class SymptomRepository {
     }
 
     @Transactional
-    public void addSymptom(Symptom symptom){
+    public Symptom addSymptom(Symptom symptom){
         em.persist(symptom);
+        return symptom;
     }
 
     @Transactional
-    public void deleteSymptom(Long id){
-        em.remove(findSymptomById(id));
+    public Symptom deleteSymptom(Long id){
+        var s = findSymptomById(id);
+        em.remove(s);
+        return s;
     }
 
     public Symptom findSymptomById(Long id){
