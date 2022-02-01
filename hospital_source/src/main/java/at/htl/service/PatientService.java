@@ -6,9 +6,10 @@ import at.htl.control.PatientRepository;
 import at.htl.entity.*;
 import at.htl.id.BedPatientId;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;
 import java.util.List;
-
+@ApplicationScoped
 public class PatientService {
     private final PatientRepository patientRepository;
     private final ConditionRepository conditionRepository;
