@@ -1,8 +1,6 @@
-package at.htl.boundary;
+package at.htl.api;
 
-import at.htl.control.ConditionRepository;
 import at.htl.entity.Condition;
-import at.htl.entity.Patient;
 import at.htl.entity.Symptom;
 import at.htl.service.ConditionService;
 

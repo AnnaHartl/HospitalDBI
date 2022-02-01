@@ -1,9 +1,7 @@
-package at.htl.boundary;
+package at.htl.api;
 
 import at.htl.entity.Bed;
-import at.htl.entity.Room;
 import at.htl.service.BedService;
-import at.htl.service.RoomService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

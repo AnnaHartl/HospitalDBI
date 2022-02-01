@@ -1,4 +1,4 @@
-package at.htl.boundary;
+package at.htl.api;
 
 import at.htl.entity.*;
 import at.htl.service.MedicalStaffService;
