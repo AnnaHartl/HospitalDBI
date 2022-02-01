@@ -41,4 +41,8 @@ public class BedService {
     public BedPatient addBedForPatient(Bed b, Patient p) {
         return bedRepository.addBedForPatient(b, p);
     }
+
+    public BedPatient findBedPatient(Patient p, Bed b) {
+        return bedRepository.findBedPatient(p, b);
+    }
 }
