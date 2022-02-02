@@ -56,4 +56,12 @@ public class BedRepository {
 
         return entityManager.merge(bp);
     }
+
+    public BedPatient findBedPatient(Patient p, Bed b) {
+        return entityManager.createQuery("Select bp from BedPatient bp where bp.id.bed = :bed and bp.id.patient = :patient"
+                        , BedPatient.class)
+                .setParameter("bed", b)
+                .setParameter("patient", p).getResultList()
+                .stream().findFirst().orElse(null);
+    }
 }

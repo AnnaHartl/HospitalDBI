@@ -1,6 +1,7 @@
 package at.htl.api;
 
 import at.htl.entity.*;
+import at.htl.service.BedService;
 import at.htl.service.ConditionService;
 import at.htl.service.PatientService;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public class PatientApi {
     private final PatientService patientService;
     private final ConditionService conditionService;
+    private  final BedService bedService;
 
-    public PatientApi(PatientService patientService, ConditionService conditionService) {
+    public PatientApi(PatientService patientService, ConditionService conditionService, BedService bedService) {
         this.patientService = patientService;
         this.conditionService = conditionService;
+        this.bedService = bedService;
     }
 
     @Produces(MediaType.APPLICATION_JSON)
@@ -75,5 +78,12 @@ public class PatientApi {
     @Path("addMedicalStaffForPatient")
     public BedPatient addBedForPatient(@QueryParam("patient") Long patientId, @QueryParam("bed") Long bedId){
         return patientService.addBedForPatient(patientId, bedId);
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("getBedPatientById/{bid}/{pid}")
+    public BedPatient getPatientId(@PathParam("bid") Long bid, @PathParam("pid") Long pid){
+        return bedService.findBedPatient(patientService.findPatientById(pid), bedService.findBedById(bid));
     }
 }

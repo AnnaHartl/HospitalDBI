@@ -106,7 +106,7 @@ public class PatientService {
         if(b == null)
             return ;
 
-        BedPatient bp = null; //= bedService.findBedPatient(p, b);
+        BedPatient bp = bedService.findBedPatient(p, b);
         bp.setToDateTime(leaveTime);
     }
 
