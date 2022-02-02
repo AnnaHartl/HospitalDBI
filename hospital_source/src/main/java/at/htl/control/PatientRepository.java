@@ -64,4 +64,10 @@ public class PatientRepository {
         pm.setId(id);
         return em.merge(pm);
     }
+
+    public List<Patient> filterByName(String filter) {
+        TypedQuery<Patient> query = em.createQuery("select p from Patient p where LOWER(p.firstName) LIKE LOWER(:filter) or LOWER(p.lastName) LIKE LOWER(:filter)", Patient.class);
+        query.setParameter("filter", filter);
+        return query.getResultList();
+    }
 }

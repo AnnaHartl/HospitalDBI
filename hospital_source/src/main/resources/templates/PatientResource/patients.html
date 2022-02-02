@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-sm-center">List of Patients</h1>
+
+
+<div class="container">
+    <form action="/patientTemplate" method="GET" name="search">
+        <div class="form-row align-items-center">
+            <div class="col-sm-3 my-1">
+                <label class="sr-only" for="filter">Search</label>
+                <input type="text" name="filter" class="form-control" id="filter" placeholder="Search By Name" required value="{filter}">
+                <input class="btn btn-primary" value="Search" type="submit">
+                <a class="btn btn-secondary" href="/patientTemplate/clear" role="button">Clear Filter</a>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col" class="fit">FirstName</th>
+            <th scope="col" class="fit">LastName</th>
+            <th scope="col" class="fit">Height</th>
+            <th scope="col" class="fit">Weight</th>
+        </tr>
+        </thead>
+
+        {#if patients.size == 0}
+            <tr>
+                <td colspan="4">No data found.</td>
+            </tr>
+            {#else}
+                {#for patient in patients}
+                    <tr>
+                    <th scope="row">{patient.firstName}</th>
+                    <td>
+                        {patient.lastName}
+                    </td>
+                    <td>
+                        {patient.height}
+                    </td>
+                    <td>
+                        {patient.weight}
+                    </td>
+                    <td>
+                        <button class="btn-primary btn" onclick="window.location.href='https://www.w3docs.com';" >Detail</button>
+                    </td>
+                    </tr>
+                {/for}
+        {/if}
+    </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+</body>
+</html>
