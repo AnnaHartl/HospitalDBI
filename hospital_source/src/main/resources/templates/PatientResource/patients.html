@@ -10,13 +10,13 @@
 
 
 <div class="container">
-    <form action="/patientTemplate" method="GET" name="search">
+    <form action="/patientTemplate/filter" method="GET" name="search">
         <div class="form-row align-items-center">
             <div class="col-sm-3 my-1">
                 <label class="sr-only" for="filter">Search</label>
                 <input type="text" name="filter" class="form-control" id="filter" placeholder="Search By Name" required value="{filter}">
                 <input class="btn btn-primary" value="Search" type="submit">
-                <a class="btn btn-secondary" href="/patientTemplate/clear" role="button">Clear Filter</a>
+                <a class="btn btn-secondary" href="/patientTemplate" role="button">Clear Filter</a>
             </div>
         </div>
     </form>
@@ -49,7 +49,8 @@
                         {patient.weight}
                     </td>
                     <td>
-                        <button class="btn-primary btn" onclick="window.location.href='https://www.w3docs.com';" >Detail</button>
+                        <button class="btn btn-primary"
+                            onclick="window.location.href='/patientTemplate/detail/{patient.id}'">Update</button>
                     </td>
                     </tr>
                 {/for}
