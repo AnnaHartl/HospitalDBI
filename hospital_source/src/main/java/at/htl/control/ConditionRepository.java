@@ -24,8 +24,9 @@ public class ConditionRepository {
 
     //CREATE
     @Transactional
-    public void addCondition(Condition condition){
+    public Condition addCondition(Condition condition){
         em.persist(condition);
+        return condition;
     }
 
     //UPDATE
@@ -36,9 +37,10 @@ public class ConditionRepository {
 
     //DELETE
     @Transactional
-    public void deleteCondition(Long id){
+    public Condition deleteCondition(Long id){
         Condition c = findConditionById(id);
         em.remove(c);
+        return c;
     }
 
     //READ
