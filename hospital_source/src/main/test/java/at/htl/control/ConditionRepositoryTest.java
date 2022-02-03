@@ -10,8 +10,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import javax.enterprise.inject.Default;
 import javax.transaction.*;
+
+import java.util.ArrayList;
 
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.assertj.db.output.Outputs.output;
@@ -62,7 +63,7 @@ class ConditionRepositoryTest {
 
         assertThat(cT).hasNumberOfRows(12);
 
-        var symptoms = conditionRepository.findConditionById(12L).getSymptoms();
+        var symptoms = new ArrayList<>(conditionRepository.findConditionById(12L).getSymptoms());
 
         var condition = deleteCondition(12L);
 

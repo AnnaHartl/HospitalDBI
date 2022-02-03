@@ -1,10 +1,12 @@
 package at.htl.control;
 
+import at.htl.entity.Condition;
 import at.htl.entity.Symptom;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -29,6 +31,10 @@ public class SymptomRepository {
     @Transactional
     public Symptom deleteSymptom(Long id){
         var s = findSymptomById(id);
+        var conditions = new ArrayList<>(s.getConditions());
+        for(Condition c : conditions){
+            s.removeCondition(c,true);
+        }
         em.remove(s);
         return s;
     }
