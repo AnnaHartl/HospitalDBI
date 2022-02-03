@@ -66,8 +66,27 @@ public class PatientRepository {
     }
 
     public List<Patient> filterByName(String filter) {
-        TypedQuery<Patient> query = em.createQuery("select p from Patient p where LOWER(p.firstName) LIKE LOWER(:filter) or LOWER(p.lastName) LIKE LOWER(:filter)", Patient.class);
+        TypedQuery<Patient> query = em.createQuery("select p from Patient p " +
+                "where LOWER(p.firstName) LIKE LOWER(:filter) " +
+                "or LOWER(p.lastName) LIKE LOWER(:filter)",
+                Patient.class);
         query.setParameter("filter", filter);
         return query.getResultList();
+    }
+
+    public List<Condition> getConditionHistoryForPatient(Long patientId){
+        Patient p = this.findPatientById(patientId);
+        TypedQuery<Condition> query = em.createQuery("select c from Condition c join c.patients cp where cp.id.patient = :id",
+                Condition.class);
+        query.setParameter("id", patientId);
+
+        for (Condition c: query.getResultList()) {
+            System.out.println(c);
+        }
+        return null;
+    }
+
+    public List<Condition> getCoditionStatisticForPatient(Long patientId){
+        return null;
     }
 }
