@@ -83,6 +83,26 @@ class ConditionRepositoryTest {
                         newCondition.getName());
     }
 
+    @Test
+    @Order(4)
+    public void updateConditionTest(){
+        var condition = conditionRepository.findConditionById(5L);
+        condition.setDescription("Allergy");
+        condition = updateCondition(condition);
+
+        Table cT = new Table(ds, "condition");
+        assertThat(cT).hasNumberOfRows(12)
+                .row(4)
+                .hasValues(condition.getId(),
+                        condition.getDescription(),
+                        condition.getName());
+    }
+
+    @Transactional
+    private Condition updateCondition(Condition condition){
+        return conditionRepository.updateCondition(condition);
+    }
+
     @Transactional
     private Condition deleteCondition(Long id){
         return conditionRepository.deleteCondition(id);
