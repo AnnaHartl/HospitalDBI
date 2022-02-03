@@ -86,6 +86,25 @@ class SymptomRepositoryTest {
                         newSymptom.getName());
     }
 
+    @Order(4)
+    @Test
+    public void updateSymptomTest(){
+        var symptom = symptomRepository.findSymptomById(8L);
+        symptom.setName("Feeling unwell");
+        symptom = updateSymptom(symptom);
+
+        Table cT = new Table(ds, "symptom");
+        assertThat(cT).hasNumberOfRows(47)
+                .row(6)
+                .hasValues(symptom.getId(),
+                        symptom.getName());
+    }
+
+    @Transactional
+    private Symptom updateSymptom(Symptom symptom) {
+        return symptomRepository.updateSymptom(symptom);
+    }
+
     private void updateCondition(Condition condition){
         conditionRepository.updateCondition(condition);
     }
