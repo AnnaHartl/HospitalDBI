@@ -551,7 +551,6 @@ values(101,2026.66,'1991-09-27'),
       (114,3798.52,'2009-08-24'),
       (115,3593.46,'1965-02-15');
 
---https://github.com/JakobRathberger/random-py-person-gen/blob/main/main_doctor.py
 insert into doctor(person_id)
     values (101),
            (102),
@@ -569,3 +568,54 @@ insert into doctor(person_id)
            (114),
            (115);
 
+--https://github.com/JakobRathberger/random-py-person-gen/blob/main/main_doctor.py
+insert into person(person_type, dob, firstname, lastname, ssn)
+values('N','1941-05-10','Gary','Dearman','7432100541'),
+      ('N','1930-03-22','Jessica','Irving','2163220330'),
+      ('N','1971-04-06','Kathleen','Huffman','1102060471'),
+      ('N','1989-04-25','Mary','Marinelli','2996250489'),
+      ('N','1959-05-24','Ken','Williams','9006240559'),
+      ('N','1970-10-16','Daniel','Barnes','3808161070'),
+      ('N','1971-10-26','Cody','Turnipseed','7120261071'),
+      ('N','1943-08-18','Marta','Ivy','2222180843'),
+      ('N','1953-10-14','Tyler','Moore','5053141053'),
+      ('N','1961-07-07','Janice','Morse','8840070761'),
+      ('N','1963-09-25','Julia','Nelson','2608250963'),
+      ('N','1966-04-18','Clifford','Aubrey','8211180466'),
+      ('N','1955-01-03','Lance','Zhou','7451030155'),
+      ('N','1957-12-14','Basilia','Myott','7927141257'),
+      ('N','1936-06-19','Donald','Mcclain','2109190636');
+
+--https://github.com/JakobRathberger/random-py-person-gen/blob/main/main_doctor.py
+insert into medicalstaff(person_id,salary,hiredate)
+values(116,3174.62,'1974-10-15'),
+      (117,3128.32,'1978-07-11'),
+      (118,2925.47,'2005-04-20'),
+      (119,3102.35,'2014-08-24'),
+      (120,2604.74,'2021-05-12'),
+      (121,3772.74,'2003-03-24'),
+      (122,2835.78,'1997-04-13'),
+      (123,3543.69,'1967-10-22'),
+      (124,3873.09,'1988-06-14'),
+      (125,3820.15,'2003-06-12'),
+      (126,2536.67,'1986-10-01'),
+      (127,3396.23,'1990-03-19'),
+      (128,2716.79,'2003-11-10'),
+      (129,2402.57,'2000-06-06'),
+      (130,2944.0,'2001-01-04');
+
+insert into nurse(person_id)
+    values (116),
+           (118),
+           (119),
+           (120),
+           (121),
+           (122),
+           (123),
+           (124),
+           (125),
+           (126),
+           (127),
+           (128),
+           (129),
+           (130);
