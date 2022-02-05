@@ -17,6 +17,9 @@ Condition ||.u.|{ Patient_Condition
 Condition ||..|{ Symptom_Condition
 Symptom_Condition }|..|| Symptom
 
+Doctor ||..|{ Doctor_Specialization
+Doctor_Specialization }|..|| Specialization
+
 circle "Komposite Key bei Assotiationstabellen"
 
 class Room {
