@@ -23,13 +23,16 @@ public class StationRepository {
     }
 
     @Transactional
-    public void addStation(Station station){
+    public Station addStation(Station station){
         entityManager.persist(station);
+        return station;
     }
 
     @Transactional
-    public void deleteStation(Long id){
-        entityManager.remove(findStationById(id));
+    public Station deleteStation(Long id){
+        Station s = findStationById(id);
+        entityManager.remove(s);
+        return s;
     }
 
     public Station findStationById(Long id){
