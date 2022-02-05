@@ -1,11 +1,17 @@
 package at.htl.control;
 
+import at.htl.entity.RoomType;
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.test.junit.QuarkusTest;
+import org.assertj.db.type.Table;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import javax.transaction.Transactional;
+
+import static org.assertj.db.api.Assertions.assertThat;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -42,5 +48,25 @@ class RoomTypeRepositoryTest {
 
         org.assertj.core.api.Assertions.assertThat(rt3.getId()).isEqualTo(17);
         org.assertj.core.api.Assertions.assertThat(rt3.getName()).isEqualTo("Intensive care surveillance rooms");
+    }
+
+    @Test
+    @Order(3)
+    public void updateRoomTypeTest(){
+        var rt = roomTypeRepository.findRoomTypeById(1L);
+        rt.setName("1 Bedroom");
+
+        updateRoomType(rt);
+
+        Table rtT = new Table(ds, "roomtype");
+        assertThat(rtT).hasNumberOfRows(17)
+                .row(0)
+                .hasValues(rt.getId(),
+                        rt.getName());
+    }
+
+    @Transactional
+    private void updateRoomType(RoomType roomType){
+        roomTypeRepository.updateRoomType(roomType);
     }
 }
