@@ -1,11 +1,17 @@
 package at.htl.control;
 
+import at.htl.entity.Bed;
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.test.junit.QuarkusTest;
+import org.assertj.db.type.Table;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import javax.transaction.Transactional;
+
+import static org.assertj.db.api.Assertions.assertThat;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -45,5 +51,26 @@ class BedRepositoryTest {
         org.assertj.core.api.Assertions.assertThat(b3.getId()).isEqualTo(63);
         org.assertj.core.api.Assertions.assertThat(b3.getBedNumber()).isEqualTo(62);
         org.assertj.core.api.Assertions.assertThat(b3.getRoom().getId()).isEqualTo(35);
+    }
+
+    @Test
+    @Order(3)
+    public void updateBedTest(){
+        var b = bedRepository.findBedById(63L);
+        b.setBedNumber(64);
+
+        updateBed(b);
+
+        Table bT = new Table(ds, "bed");
+        assertThat(bT).hasNumberOfRows(63)
+                .row(62)
+                .hasValues(b.getId(),
+                        b.getBedNumber(),
+                        b.getRoom().getId());
+    }
+
+    @Transactional
+    private void updateBed(Bed bed){
+        bedRepository.updateBed(bed);
     }
 }
