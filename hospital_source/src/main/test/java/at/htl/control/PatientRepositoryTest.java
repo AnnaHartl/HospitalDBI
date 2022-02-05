@@ -1,19 +1,28 @@
 package at.htl.control;
 
+import at.htl.entity.Patient;
+import io.agroal.api.AgroalDataSource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.apache.derby.client.am.DateTime;
+import org.assertj.db.type.Table;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import javax.transaction.Transactional;
+
+import static org.assertj.db.api.Assertions.assertThat;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PatientRepositoryTest {
     private final PatientRepository patientRepository;
 
-    PatientRepositoryTest(PatientRepository patientRepository) {
+    private final AgroalDataSource ds;
+
+    PatientRepositoryTest(PatientRepository patientRepository, AgroalDataSource ds) {
         this.patientRepository = patientRepository;
+        this.ds = ds;
     }
 
     @Test
@@ -50,5 +59,26 @@ class PatientRepositoryTest {
         org.assertj.core.api.Assertions.assertThat(patient4.getLastName()).isEqualTo("Hamrick");
         org.assertj.core.api.Assertions.assertThat(patient4.getSsn()).isEqualTo("9258251166");
         org.assertj.core.api.Assertions.assertThat(patient4.getDob()).isEqualTo("1966-11-25");
+    }
+
+    @Test
+    @Order(3)
+    public void updatePatientTest(){
+        var p = patientRepository.findPatientById(1L);
+        p.setWeight(80.5);
+
+        updatePatient(p);
+
+        Table pT = new Table(ds, "patient");
+        assertThat(pT).hasNumberOfRows(100)
+                .row(0)
+                .hasValues(p.getHeight(),
+                        p.getWeight(),
+                        p.getId());
+    }
+
+    @Transactional
+    public void updatePatient(Patient patient){
+        patientRepository.updatePatient(patient);
     }
 }
