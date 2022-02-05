@@ -49,7 +49,7 @@ class BedRepositoryTest {
         org.assertj.core.api.Assertions.assertThat(b2.getRoom().getId()).isEqualTo(21);
 
         org.assertj.core.api.Assertions.assertThat(b3.getId()).isEqualTo(63);
-        org.assertj.core.api.Assertions.assertThat(b3.getBedNumber()).isEqualTo(62);
+        org.assertj.core.api.Assertions.assertThat(b3.getBedNumber()).isEqualTo(63);
         org.assertj.core.api.Assertions.assertThat(b3.getRoom().getId()).isEqualTo(35);
     }
 

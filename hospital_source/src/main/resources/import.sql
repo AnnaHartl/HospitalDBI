@@ -291,24 +291,24 @@ insert into bed(bednumber, room_id)
            (43, 29),
            (44, 29),
            (45, 30),
-           (45, 30),
-           (46, 31),
+           (46, 30),
            (47, 31),
            (48, 31),
-           (49, 32),
+           (49, 31),
            (50, 32),
            (51, 32),
-           (52, 33),
+           (52, 32),
            (53, 33),
            (54, 33),
-           (55, 34),
+           (55, 33),
            (56, 34),
            (57, 34),
            (58, 34),
-           (59, 35),
+           (59, 34),
            (60, 35),
            (61, 35),
-           (62, 35);
+           (62, 35),
+           (63, 35);
 
 -- generated with https://github.com/JakobRathberger/random-py-person-gen/blob/main/main.py
 insert into person(person_type, dob, firstname, lastname, ssn)
