@@ -15,8 +15,8 @@ public class RoomTypeService {
         this.roomTypeRepository = roomTypeRepository;
     }
 
-    public void addRoomType(RoomType roomType){
-        roomTypeRepository.addRoomType(roomType);
+    public RoomType addRoomType(RoomType roomType){
+        return roomTypeRepository.addRoomType(roomType);
     }
 
     public void deleteRoomType(Long id){

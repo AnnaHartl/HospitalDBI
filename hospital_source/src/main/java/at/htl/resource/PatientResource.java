@@ -32,6 +32,7 @@ public class PatientResource {
         public static native TemplateInstance patientRecord(Patient patient);
         public static native TemplateInstance addCondition(Long patientId, List<Condition> conditions);
         public static native TemplateInstance newCondition(Long patientId);
+        public static native TemplateInstance patientAdd();
     }
 
     @GET
@@ -80,6 +81,38 @@ public class PatientResource {
         p.setWeight(weight);
 
         return Templates.patientUpdate(p);
+    }
+
+    @GET()
+    @Path("detailAdd")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance showDetailAdd(){
+        return Templates.patientAdd();
+    }
+
+    @POST
+    @Path("add")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public TemplateInstance add(@FormParam("fn") String  fn,
+                           @FormParam("ln") String ln,
+                           @FormParam("height") double height,
+                           @FormParam("weight") double weight
+    ){
+        System.out.println("Name: "+height);
+
+        Patient p = new Patient();
+        p.setFirstName(fn);
+        p.setLastName(ln);
+        p.setHeight(height);
+        p.setWeight(weight);
+        p = patientRepository.addPatient(p);
+
+        Long i = p.getId();
+
+        return Templates.patientAdd();
     }
 
     @GET()

@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patient Update</title>
+    <title>Patient Add</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<h1 class="text-sm-center">Patient Update</h1>
+<h1 class="text-sm-center">Patient Add</h1>
 <div class="container">
-    <form class="form-control" method="post" action="/patientTemplate/update/{patient.id}">
+    <form class="form-control" method="post" action="/patientTemplate/add">
         <div class="row" style="margin-bottom: 20px;">
             <label class="col-md-2 col-form-label" for="fn">First Name: </label>
-            <input name="fn" class="form-control col" id="fn" value="{patient.firstName}"> <br>
+            <input name="fn" class="form-control col" id="fn"> <br>
         </div>
         <div class="row" style="margin-bottom: 20px;">
             <label class="col-md-2 col-form-label" for="ln">Last Name: </label>
-            <input name="ln" class="form-control col" id="ln" value="{patient.lastName}"><br>
+            <input name="ln" class="form-control col" id="ln"><br>
         </div>
         <div class="row" style="margin-bottom: 20px;">
             <label class="col-md-2 col-form-label" for="height">Height: </label>
-            <input name="height" class="form-control col" id="height" value="{patient.height}"><br>
+            <input name="height" class="form-control col" id="height"><br>
         </div>
         <div class="row">
             <label class="col-md-2 col-form-label" for="weight">Weight: </label>
-            <input class="form-control col" name="weight" id="weight" value="{patient.weight}">
+            <input class="form-control col" name="weight" id="weight">
         </div>
         <br>
         <input type="submit" class="btn-dark btn" >

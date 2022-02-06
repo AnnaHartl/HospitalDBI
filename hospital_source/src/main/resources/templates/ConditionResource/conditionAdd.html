@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Condition Add</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-sm-center">Condition Add</h1>
+<div class="container">
+    <form class="form-control" method="post" action="/conditionTemplate/add">
+        <div class="row" style="margin-bottom: 20px;">
+            <label class="col-md-2 col-form-label" for="fn">Name: </label>
+            <input name="name" class="form-control col" id="name"> <br>
+        </div>
+        <div class="row" style="margin-bottom: 20px;">
+            <label class="col-md-2 col-form-label" for="ln">Description: </label>
+            <input name="desc" class="form-control col" id="desc"><br>
+        </div>
+        <br>
+        <input type="submit" class="btn-dark btn" >
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+</body>
+</html>
