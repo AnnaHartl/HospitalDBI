@@ -5,6 +5,7 @@ import at.htl.id.PatientConditionId;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,23 +14,23 @@ public class PatientCondition {
     @EmbeddedId
     PatientConditionId id;
 
-    private LocalDateTime fromDateTime;
-    private LocalDateTime toDateTime;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
-    public LocalDateTime getFromDateTime() {
-        return fromDateTime;
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
-    public void setFromDateTime(LocalDateTime fromDateTime) {
-        this.fromDateTime = fromDateTime;
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public LocalDateTime getToDateTime() {
-        return toDateTime;
+    public LocalDate getToDate() {
+        return toDate;
     }
 
-    public void setToDateTime(LocalDateTime toDateTime) {
-        this.toDateTime = toDateTime;
+    public void setToDate(LocalDate toDate) {
+        this.toDate = toDate;
     }
 
     public PatientConditionId getId() {

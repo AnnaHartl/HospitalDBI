@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Condition</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-sm-center">Patient Condition</h1>
+
+
+<div class="container">
+   <h3>New Condition</h3>
+    <form method="post" action="/patientTemplate/addNewCondition/{patientId}">
+
+        <label for="name">Name:</label>
+        <input id="name" name="name" type="text"><br><br>
+
+        <label for="description">Description: </label>
+        <input id="description" name="description" type="text">
+
+        <br>
+        <input type="submit" value="Submit" class="btn-dark btn">
+
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+</body>
+</html>

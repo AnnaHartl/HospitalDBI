@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient List</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-sm-center">Patient Record</h1>
+
+
+<div class="container">
+    <h2>Information</h2>
+    Patient Id: {patient.id} <br>
+    Firstname: {patient.firstName} <br>
+    Lastname: {patient.lastName} <br>
+    Current height: {patient.height} <br>
+    Current weight: {patient.weight}<br>
+
+    <br><br>
+    <h2>Conditions</h2>
+    {#for patientCondtion in patient.conditions}
+
+        Name: {patientCondtion.id.condition.name} <br>
+        From: {patientCondtion.fromDate} <br>
+        {#if patientCondtion.toDate != null}
+            To: {patientCondtion.toDate} <br>
+        {/if}
+
+    <br><br>
+
+    {/for}
+
+    <button class="btn btn-primary"
+            onclick="window.location.href='/patientTemplate/addCondition/{patient.id}'">Add Condition
+    </button>
+
+    <br><br>
+    <h2>Beds</h2>
+    {#for patientBed in patient.beds}
+
+        Name: {patientBed.id.bed.bedNumber} <br>
+        From: {patientBed.fromDateTime} <br>
+        {#if patientBed.toDateTime != null}
+            To: {patientBed.toDateTime} <br>
+        {/if}
+
+        <br><br>
+
+    {/for}
+
+    <button class="btn btn-primary"
+            onclick="window.location.href='/patientTemplate/addBed/{patient.id}'">Add Bed
+    </button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+</body>
+</html>
