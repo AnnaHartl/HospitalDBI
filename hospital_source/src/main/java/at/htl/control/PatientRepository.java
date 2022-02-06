@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class PatientRepository {
         id.setCondition(c);
         PatientCondition pc = new PatientCondition();
         pc.setId(id);
-        pc.setFromDateTime(LocalDateTime.now());
+        pc.setFromDate(LocalDate.now());
         return em.merge(pc);
     }
 

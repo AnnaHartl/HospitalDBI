@@ -1,7 +1,10 @@
 package at.htl.resource;
 
+import at.htl.control.ConditionRepository;
 import at.htl.control.PatientRepository;
+import at.htl.entity.Condition;
 import at.htl.entity.Patient;
+import at.htl.entity.Symptom;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 import org.jboss.logging.annotations.Pos;
@@ -19,10 +22,16 @@ public class PatientResource {
     @Inject
     PatientRepository patientRepository;
 
+    @Inject
+    ConditionRepository conditionRepository;
+
     @CheckedTemplate
     public static class Templates {
         public static native TemplateInstance patients(List<Patient> patients, String filter);
         public static native TemplateInstance patientUpdate(Patient patient);
+        public static native TemplateInstance patientRecord(Patient patient);
+        public static native TemplateInstance addCondition(Long patientId, List<Condition> conditions);
+        public static native TemplateInstance newCondition(Long patientId);
     }
 
     @GET
@@ -71,5 +80,59 @@ public class PatientResource {
         p.setWeight(weight);
 
         return Templates.patientUpdate(p);
+    }
+
+    @GET()
+    @Path("record/{id}")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance showRecord(@PathParam("id") Long patientId){
+        Patient p = patientRepository.findPatientById(patientId);
+        return Templates.patientRecord(p);
+    }
+
+    @GET()
+    @Path("addCondition/{id}")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance addCondion(@PathParam("id") Long patientId){
+        return Templates.addCondition(patientId, conditionRepository.getAllConditions());
+    }
+
+    @GET()
+    @Path("newCondition/{id}")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance newCondition(@PathParam("id") Long patientId){
+        return Templates.newCondition(patientId);
+    }
+
+    @POST
+    @Path("addNewCondition/{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public TemplateInstance addNewCondition(@PathParam("id") Long id,
+                                   @FormParam("name") String  name,
+                                   @FormParam("description") String description
+    ){
+
+        conditionRepository.addCondition(new Condition(name, description));
+        return Templates.addCondition(id, conditionRepository.getAllConditions());
+    }
+
+    @POST
+    @Path("addPatientCondition/{patientId}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    //@Transactional
+    public TemplateInstance addPatientCondition(@PathParam("patientId") Long patId,
+                                            @FormParam("conditionId") Long  conId
+    ){
+        System.out.println(patId+"   "+conId);
+        Patient p = patientRepository.findPatientById(patId);
+        Condition c = conditionRepository.findConditionById(conId);
+        patientRepository.addPatientCondition(p, c);
+        return Templates.patientRecord(p);
     }
 }
