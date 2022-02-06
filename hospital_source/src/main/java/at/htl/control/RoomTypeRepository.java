@@ -1,6 +1,5 @@
 package at.htl.control;
 
-import at.htl.entity.Room;
 import at.htl.entity.RoomType;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,8 +21,9 @@ public class RoomTypeRepository {
     }
 
     @Transactional
-    public void addRoomType(RoomType roomType){
+    public RoomType addRoomType(RoomType roomType){
         entityManager.persist(roomType);
+        return roomType;
     }
 
     @Transactional
