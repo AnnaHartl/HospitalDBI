@@ -24,8 +24,9 @@ public class PatientRepository {
     }
 
     @Transactional
-    public void addPatient(Patient patient){
+    public Patient addPatient(Patient patient){
         em.persist(patient);
+        return patient;
     }
 
     @Transactional

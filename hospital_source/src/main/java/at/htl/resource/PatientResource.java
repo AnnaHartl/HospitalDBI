@@ -102,10 +102,12 @@ public class PatientResource {
         p.setLastName(ln);
         p.setHeight(height);
         p.setWeight(weight);
-        patientRepository.addPatient(p);
+        p = patientRepository.addPatient(p);
+
+        Long i = p.getId();
 
         Templates.patientAdd();
 
-        return Response.status(301).location(URI.create("/conditionTemplate")).build();
+        return Response.status(301).location(URI.create("/conditionTemplate?id=" + i)).build();
     }
 }

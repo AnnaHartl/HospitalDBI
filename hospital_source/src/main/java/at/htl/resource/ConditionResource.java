@@ -1,6 +1,7 @@
 package at.htl.resource;
 
 import at.htl.control.ConditionRepository;
+import at.htl.control.PatientRepository;
 import at.htl.entity.Condition;
 import at.htl.entity.Patient;
 import io.quarkus.qute.CheckedTemplate;
@@ -19,10 +20,12 @@ import java.util.List;
 public class ConditionResource {
     @Inject
     ConditionRepository conditionRepository;
+    @Inject
+    PatientRepository patientRepository;
 
     @CheckedTemplate
     public static class Templates {
-        public static native TemplateInstance condition(List<Condition> conditions, String filter);
+        public static native TemplateInstance condition(List<Condition> conditions, String filter, Long id);
         public static native TemplateInstance conditionAdd();
     }
 
@@ -30,17 +33,18 @@ public class ConditionResource {
     @Path("filter")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance getConditions(@QueryParam("filter") String filter) {
+    public TemplateInstance getConditions(@QueryParam("filter") String filter,
+                                          @QueryParam("id") Long id) {
         System.out.println("Achtung: " + filter);
         List<Condition> c = conditionRepository.filterByName(filter);
-        return ConditionResource.Templates.condition(c, filter);
+        return ConditionResource.Templates.condition(c, filter,id);
     }
 
     @GET()
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance clear() {
-        return ConditionResource.Templates.condition(conditionRepository.getAllConditions(), "");
+    public TemplateInstance clear(@QueryParam("id") Long id) {
+        return ConditionResource.Templates.condition(conditionRepository.getAllConditions(), "",id);
     }
 
     @GET()
@@ -50,6 +54,20 @@ public class ConditionResource {
     public TemplateInstance showDetailAdd(){
         return ConditionResource.Templates.conditionAdd();
     }
+
+    @Path("addConToPat/{cid}/{pid}")
+    @POST
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public Response addConToPat(@PathParam("cid") Long cid,
+                                @PathParam("pid") Long pid){
+
+
+        return Response.status(301).location(URI.create("/patientTemplate")).build();
+
+    }
+
+
 
     @POST
     @Path("add")
@@ -66,6 +84,6 @@ public class ConditionResource {
 
         ConditionResource.Templates.conditionAdd();
 
-        return Response.status(301).location(URI.create("/patientTemplate")).build();
+        return Response.status(301).location(URI.create("/conditionTemplate")).build();
     }
 }
