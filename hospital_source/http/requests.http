@@ -35,6 +35,11 @@ GET http://localhost:8080/api/room/findRoomById/1
 POST http://localhost:8080/api/patient/addConditionForPatient?condition=1&patient=1
 
 ###
+GET http://localhost:8080/api/staff
+
+###
+GET http://localhost:8080/api/staff/doctor
+###
 
 GET http://localhost:8080/api/bed/getAllBeds
 
