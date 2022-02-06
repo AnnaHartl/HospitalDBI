@@ -515,6 +515,8 @@ values(1,73.5,198.3),
       (99,77.9,153.6),
       (100,93.8,125.8);
 
+
+
 --
 insert into person(person_type, dob, firstname, lastname, ssn)
 values('D','1961-11-06','Stephanie','Young','5143061161'),

@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
 
 @Path("patientTemplate")
@@ -56,7 +57,7 @@ public class PatientResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
     @Transactional
-    public TemplateInstance update(@PathParam("id") Long id,
+    public Response update(@PathParam("id") Long id,
                                    @FormParam("fn") String  fn,
                                    @FormParam("ln") String ln,
                                    @FormParam("height") double height,
@@ -70,6 +71,8 @@ public class PatientResource {
         p.setHeight(height);
         p.setWeight(weight);
 
-        return Templates.patientUpdate(p);
+        Templates.patientUpdate(p);
+
+        return Response.status(301).location(URI.create("/patientTemplate")).build();
     }
 }
