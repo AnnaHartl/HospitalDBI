@@ -24,6 +24,7 @@ public class PatientResource {
     public static class Templates {
         public static native TemplateInstance patients(List<Patient> patients, String filter);
         public static native TemplateInstance patientUpdate(Patient patient);
+        public static native TemplateInstance patientAdd();
     }
 
     @GET
@@ -72,6 +73,38 @@ public class PatientResource {
         p.setWeight(weight);
 
         Templates.patientUpdate(p);
+
+        return Response.status(301).location(URI.create("/patientTemplate")).build();
+    }
+
+    @GET()
+    @Path("detailAdd")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance showDetailAdd(){
+        return Templates.patientAdd();
+    }
+
+    @POST
+    @Path("add")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public Response add(@FormParam("fn") String  fn,
+                           @FormParam("ln") String ln,
+                           @FormParam("height") double height,
+                           @FormParam("weight") double weight
+    ){
+        System.out.println("Name: "+height);
+
+        Patient p = new Patient();
+        p.setFirstName(fn);
+        p.setLastName(ln);
+        p.setHeight(height);
+        p.setWeight(weight);
+        patientRepository.addPatient(p);
+
+        Templates.patientAdd();
 
         return Response.status(301).location(URI.create("/patientTemplate")).build();
     }

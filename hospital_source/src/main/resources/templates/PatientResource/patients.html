@@ -17,6 +17,7 @@
                 <input type="text" name="filter" class="form-control" id="filter" placeholder="Search By Name" required value="{filter}">
                 <input class="btn btn-primary" value="Search" type="submit">
                 <a class="btn btn-secondary" href="/patientTemplate" role="button">Clear Filter</a>
+
             </div>
         </div>
     </form>
@@ -28,6 +29,7 @@
             <th scope="col" class="fit">LastName</th>
             <th scope="col" class="fit">Height</th>
             <th scope="col" class="fit">Weight</th>
+            <th><input class="btn btn-primary" onclick="window.location.href='/patientTemplate/detailAdd'" value="Add" type="submit" style="background-color: green"></th>
         </tr>
         </thead>
 
