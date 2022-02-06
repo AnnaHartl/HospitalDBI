@@ -106,6 +106,6 @@ public class PatientResource {
 
         Templates.patientAdd();
 
-        return Response.status(301).location(URI.create("/patientTemplate")).build();
+        return Response.status(301).location(URI.create("/conditionTemplate")).build();
     }
 }

@@ -70,7 +70,7 @@ public class PatientRepository {
                 "where LOWER(p.firstName) LIKE LOWER(:filter) " +
                 "or LOWER(p.lastName) LIKE LOWER(:filter)",
                 Patient.class);
-        query.setParameter("filter", filter);
+        query.setParameter("filter", '%' + filter + '%');
         return query.getResultList();
     }
 
