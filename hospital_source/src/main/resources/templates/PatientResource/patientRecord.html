@@ -34,6 +34,24 @@
     <button class="btn btn-primary"
             onclick="window.location.href='/patientTemplate/addCondition/{patient.id}'">Add Condition
     </button>
+
+    <br><br>
+    <h2>Beds</h2>
+    {#for patientBed in patient.beds}
+
+        Name: {patientBed.id.bed.bedNumber} <br>
+        From: {patientBed.fromDateTime} <br>
+        {#if patientBed.toDateTime != null}
+            To: {patientBed.toDateTime} <br>
+        {/if}
+
+        <br><br>
+
+    {/for}
+
+    <button class="btn btn-primary"
+            onclick="window.location.href='/patientTemplate/addBed/{patient.id}'">Add Bed
+    </button>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

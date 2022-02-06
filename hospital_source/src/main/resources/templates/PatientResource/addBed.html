@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patient Condition</title>
+    <title>Patient Bed</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<h1 class="text-sm-center">Patient Condition</h1>
+<h1 class="text-sm-center">Patient Beds</h1>
 
 
 <div class="container">
-    <h3>Select Condition for Patient #{patientId}</h3>
-    <form method="post" action="/patientTemplate/addPatientCondition/{patientId}">
-        <!--{#for condition in conditions}
+    <h3>Select Bed for Patient #{patientId}</h3>
+    <form method="post" action="/patientTemplate/addPatientBed/{patientId}">
+        <!--{#for bed in beds}
         <div class="form-check">
             <input class="form-check-input" type="" value="" id="defaultCheck1">
             <label class="form-check-label" for="defaultCheck1">
-                {condition.name}
+                {bed.bedNumber}
             </label>
         </div>
         {/for}-->
-        <select class="form-control" name="conditionId" id="conditionId">
-            {#for condition in conditions}
-            <option  value="{condition.id}">{condition.name}</option>
+        <select class="form-control" name="bedId" id="bedId">
+            {#for bed in beds}
+                <option  value="{bed.id}">{bed.bedNumber} {bed.room.station.name}</option>
             {/for}
         </select>
 
@@ -31,8 +31,8 @@
     </form>
     <br>
     <button class="btn-dark btn"
-            onclick="window.location.href='/patientTemplate/newCondition/{patientId}'">
-        Add new Condition
+            onclick="window.location.href='/patientTemplate/newBed/{patientId}'">
+        Add new Bed
     </button>
 </div>
 

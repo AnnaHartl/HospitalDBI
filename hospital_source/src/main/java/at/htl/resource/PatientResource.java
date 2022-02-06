@@ -1,10 +1,9 @@
 package at.htl.resource;
 
+import at.htl.control.BedRepository;
 import at.htl.control.ConditionRepository;
 import at.htl.control.PatientRepository;
-import at.htl.entity.Condition;
-import at.htl.entity.Patient;
-import at.htl.entity.Symptom;
+import at.htl.entity.*;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 import org.jboss.logging.annotations.Pos;
@@ -25,6 +24,9 @@ public class PatientResource {
     @Inject
     ConditionRepository conditionRepository;
 
+    @Inject
+    BedRepository bedRepository;
+
     @CheckedTemplate
     public static class Templates {
         public static native TemplateInstance patients(List<Patient> patients, String filter);
@@ -33,6 +35,7 @@ public class PatientResource {
         public static native TemplateInstance addCondition(Long patientId, List<Condition> conditions);
         public static native TemplateInstance newCondition(Long patientId);
         public static native TemplateInstance patientAdd();
+        public static native TemplateInstance addBed(Long patientId, List<Bed> beds);
     }
 
     @GET
@@ -128,7 +131,7 @@ public class PatientResource {
     @Path("addCondition/{id}")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance addCondion(@PathParam("id") Long patientId){
+    public TemplateInstance addCondition(@PathParam("id") Long patientId){
         return Templates.addCondition(patientId, conditionRepository.getAllConditions());
     }
 
@@ -167,5 +170,29 @@ public class PatientResource {
         Condition c = conditionRepository.findConditionById(conId);
         patientRepository.addPatientCondition(p, c);
         return Templates.patientRecord(p);
+    }
+
+    @GET()
+    @Path("addBed/{id}")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance addBed(@PathParam("id") Long patientId){
+        return Templates.addBed(patientId, bedRepository.getAllBeds());
+    }
+
+
+    @POST
+    @Path("addPatientBed/{patientId}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public TemplateInstance addPatientBed(@PathParam("patientId") Long patId,
+                                                @FormParam("bedId") Long  bId
+    ){
+        System.out.println(patId+"   "+bId);
+        Patient p = patientRepository.findPatientById(patId);
+        Bed bed = bedRepository.findBedById(bId);
+        bedRepository.addBedForPatient(bed,p);
+        return Templates.patientAdd();
     }
 }
