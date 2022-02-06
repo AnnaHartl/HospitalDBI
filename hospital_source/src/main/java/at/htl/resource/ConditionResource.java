@@ -25,7 +25,7 @@ public class ConditionResource {
 
     @CheckedTemplate
     public static class Templates {
-        public static native TemplateInstance condition(List<Condition> conditions, String filter, Long id);
+        public static native TemplateInstance condition(List<Condition> conditions, String filter, Long cid);
         public static native TemplateInstance conditionAdd();
     }
 
@@ -56,13 +56,15 @@ public class ConditionResource {
     }
 
     @Path("addConToPat/{cid}/{pid}")
-    @POST
-    @Consumes(MediaType.TEXT_HTML)
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_HTML)
     public Response addConToPat(@PathParam("cid") Long cid,
                                 @PathParam("pid") Long pid){
 
 
+        patientRepository.addPatientCondition(patientRepository.findPatientById(pid),
+                conditionRepository.findConditionById(cid));
         return Response.status(301).location(URI.create("/patientTemplate")).build();
 
     }

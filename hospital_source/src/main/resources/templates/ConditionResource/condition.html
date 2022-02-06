@@ -43,7 +43,9 @@
                         {condition.description}
                     </td>
                     <td>
-                    <button class="btn btn-primary" onclick="window.location.href='/conditionTemplate/addConToPat/{condition.id}/{id}'">Select</button>
+                    <form method="get" action="/conditionTemplate/addConToPat/{condition.id}/{cid}">
+                        <input type="submit" class="btn-dark btn" >
+                    </form>
                     </td>
                     </tr>
                 {/for}
