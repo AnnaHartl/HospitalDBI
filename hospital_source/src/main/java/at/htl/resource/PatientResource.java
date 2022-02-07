@@ -161,11 +161,9 @@ public class PatientResource {
     @Path("addPatientCondition/{patientId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
-    //@Transactional
     public TemplateInstance addPatientCondition(@PathParam("patientId") Long patId,
                                             @FormParam("conditionId") Long  conId
     ){
-        System.out.println(patId+"   "+conId);
         Patient p = patientRepository.findPatientById(patId);
         Condition c = conditionRepository.findConditionById(conId);
         patientRepository.addPatientCondition(p, c);
