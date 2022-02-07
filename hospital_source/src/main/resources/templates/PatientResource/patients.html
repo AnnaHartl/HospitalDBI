@@ -10,13 +10,14 @@
 
 
 <div class="container">
-    <form action="/patientTemplate/filter" method="GET" name="search">
+    <form action="/patientTemplate/filter" metSubhod="GET" name="search">
         <div class="form-row align-items-center">
             <div class="col-sm-3 my-1">
                 <label class="sr-only" for="filter">Search</label>
                 <input type="text" name="filter" class="form-control" id="filter" placeholder="Search By Name" required value="{filter}">
                 <input class="btn btn-primary" value="Search" type="submit">
                 <a class="btn btn-secondary" href="/patientTemplate" role="button">Clear Filter</a>
+
             </div>
         </div>
     </form>
@@ -28,6 +29,7 @@
             <th scope="col" class="fit">LastName</th>
             <th scope="col" class="fit">Height</th>
             <th scope="col" class="fit">Weight</th>
+            <th><input class="btn btn-primary" onclick="window.location.href='/patientTemplate/detailAdd'" value="Add" type="submit" style="background-color: green"></th>
         </tr>
         </thead>
 
@@ -51,6 +53,8 @@
                     <td>
                         <button class="btn btn-primary"
                             onclick="window.location.href='/patientTemplate/detail/{patient.id}'">Update</button>
+                        <button class="btn btn-primary"
+                                onclick="window.location.href='/patientTemplate/record/{patient.id}'">Record</button>
                     </td>
                     </tr>
                 {/for}

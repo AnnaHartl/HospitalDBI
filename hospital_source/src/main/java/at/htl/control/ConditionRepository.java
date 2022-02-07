@@ -53,4 +53,13 @@ public class ConditionRepository {
     public List<Condition> getConditionsForPatient(Patient p) {
         return null;
     }
+
+    public List<Condition> filterByName(String filter) {
+        TypedQuery<Condition> query = em.createQuery("select c from Condition c " +
+                        "where LOWER(c.name) LIKE LOWER(:filter) " +
+                        "or LOWER(c.description) LIKE LOWER(:filter)",
+                Condition.class);
+        query.setParameter("filter", '%' + filter + '%');
+        return query.getResultList();
+    }
 }

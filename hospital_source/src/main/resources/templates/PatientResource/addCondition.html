@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Condition</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-sm-center">Patient Condition</h1>
+
+
+<div class="container">
+    <h3>Select Condition for Patient #{patientId}</h3>
+    <form method="post" action="/patientTemplate/addPatientCondition/{patientId}">
+        <!--{#for condition in conditions}
+        <div class="form-check">
+            <input class="form-check-input" type="" value="" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1">
+                {condition.name}
+            </label>
+        </div>
+        {/for}-->
+        <select class="form-control" name="conditionId" id="conditionId">
+            {#for condition in conditions}
+            <option  value="{condition.id}">{condition.name}</option>
+            {/for}
+        </select>
+
+        <br>
+        <input type="submit" value="Submit" class="btn-dark btn">
+    </form>
+    <br>
+    <button class="btn-dark btn"
+            onclick="window.location.href='/patientTemplate/newCondition/{patientId}'">
+        Add new Condition
+    </button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+</body>
+</html>

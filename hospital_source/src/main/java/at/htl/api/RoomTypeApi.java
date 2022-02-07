@@ -5,6 +5,7 @@ import at.htl.service.RoomTypeService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("api/roomType")
@@ -45,9 +46,10 @@ public class RoomTypeApi {
     }
 
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @POST
     @Path("addRoomType")
-    public void addRoomType(RoomType roomType) {
-        roomTypeService.addRoomType(roomType);
+    public Response addRoomType(RoomType roomType) {
+        return Response.ok(roomTypeService.addRoomType(roomType)).build();
     }
 }
