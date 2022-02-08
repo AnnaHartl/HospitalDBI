@@ -1,8 +1,6 @@
 package at.htl.resource;
 
-import at.htl.control.BedRepository;
-import at.htl.control.ConditionRepository;
-import at.htl.control.PatientRepository;
+import at.htl.control.*;
 import at.htl.entity.*;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
@@ -27,6 +25,12 @@ public class PatientResource {
     @Inject
     BedRepository bedRepository;
 
+    @Inject
+    DoctorRepository doctorRepository;
+
+    @Inject
+    MedicalStaffRepository medicalStaffRepository;
+
     @CheckedTemplate
     public static class Templates {
         public static native TemplateInstance patients(List<Patient> patients, String filter);
@@ -36,6 +40,7 @@ public class PatientResource {
         public static native TemplateInstance newCondition(Long patientId);
         public static native TemplateInstance patientAdd();
         public static native TemplateInstance addBed(Long patientId, List<Bed> beds);
+        public static native TemplateInstance addDoctor(Long patientId, List<Doctor> doctors);
     }
 
     @GET
@@ -191,6 +196,30 @@ public class PatientResource {
         Patient p = patientRepository.findPatientById(patId);
         Bed bed = bedRepository.findBedById(bId);
         bedRepository.addBedForPatient(bed,p);
+        return Templates.patientAdd();
+    }
+
+
+    @GET()
+    @Path("addDoctor/{id}")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance addDoctor(@PathParam("id") Long patientId){
+        return Templates.addDoctor(patientId, doctorRepository.getAllDoctors());
+    }
+
+    @POST
+    @Path("addPatientDoctor/{patientId}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_HTML)
+    @Transactional
+    public TemplateInstance addPatientDoctor(@PathParam("patientId") Long patId,
+                                          @FormParam("doctorId") Long  dId
+    ){
+        System.out.println(patId+"   "+dId);
+        Patient p = patientRepository.findPatientById(patId);
+        Doctor doctor = doctorRepository.findDoctorById(dId);
+        patientRepository.addMedicalStaffForPatient(p, doctor);
         return Templates.patientAdd();
     }
 }
