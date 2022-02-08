@@ -28,7 +28,8 @@ public class BedResource {
 
     @CheckedTemplate
     public static class Templates {
-        public static native TemplateInstance bed(List<Bed> beds, List<Station> stations, List<RoomType> roomTypes);
+        public static native TemplateInstance bed(List<Bed> beds, List<Station> stations,
+                                                  List<RoomType> roomTypes);
     }
 
     @GET

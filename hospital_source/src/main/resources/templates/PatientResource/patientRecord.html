@@ -39,7 +39,7 @@
     <h2>Beds</h2>
     {#for patientBed in patient.beds}
 
-        Name: {patientBed.id.bed.bedNumber} <br>
+        BedNumber: {patientBed.id.bed.bedNumber} <br>
         From: {patientBed.fromDateTime} <br>
         {#if patientBed.toDateTime != null}
             To: {patientBed.toDateTime} <br>

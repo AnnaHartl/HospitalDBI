@@ -55,7 +55,7 @@ public class PatientService {
         return null;
     }
 
-    public BedPatient addBedForPatient(Long bedId, Long patientId) {
+    public BedPatient addBedForPatient(Long bedId, Long patientId, LocalDateTime from, LocalDateTime to){
         Patient p = patientRepository.findPatientById(patientId);
         Bed b = bedService.findBedById(bedId);
 
@@ -65,7 +65,7 @@ public class PatientService {
         if(b == null)
             return null;
 
-        return bedService.addBedForPatient(b, p);
+        return bedService.addBedForPatient(b, p, from, to);
     }
 
     public PatientCondition addConditionForPatient(Long patientId, Long conditionId){

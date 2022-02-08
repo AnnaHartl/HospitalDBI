@@ -76,9 +76,10 @@ public class PatientApi {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    @Path("addMedicalStaffForPatient")
-    public BedPatient addBedForPatient(@QueryParam("patient") Long patientId, @QueryParam("bed") Long bedId){
-        return patientService.addBedForPatient(patientId, bedId);
+    @Path("addBedForPatient")
+    public BedPatient addBedForPatient(@QueryParam("patient") Long patientId,
+                                       @QueryParam("bed") Long bedId){
+        return patientService.addBedForPatient(patientId, bedId,LocalDateTime.now(),null);
     }
 
     @Produces(MediaType.APPLICATION_JSON)

@@ -24,21 +24,29 @@
         <label for="room-type">Room-Type:</label>
         <select name="room-type" id="room-type" class="form-select">
             {#for rt in roomTypes}
-                <option value="{rt.id}">{rt.name}</option>
+                {#if rt.id == roomTypeId}
+                    <option value="{rt.id}" selected>{rt.name}</option>
+                {#else}
+                    <option value="{rt.id}">{rt.name}</option>
+                {/if}
             {/for}
         </select>
         <br>
         <label for="station">Station:</label>
         <select name="station" id="station" class="form-select">
             {#for s in stations}
-                <option value="{s.id}">{s.name}</option>
+                {#if s.id == stationId}
+                    <option value="{s.id}" selected>{s.name}</option>
+                {#else}
+                    <option value="{s.id}">{s.name}</option>
+                {/if}
             {/for}
         </select>
 
         <br>
         <label for="start-date">Begin-Date:</label>
         <div class='input-group date col-lg-3' id='datetimepicker1'>
-            <input type='text' class="form-control" name="start-date" id="start-date" />
+            <input type='text' class="form-control" name="start-date" id="start-date" value="{fromStr}"/>
             <span class="input-group-addon">
                      <span class="glyphicon glyphicon-calendar"></span>
                      </span>
@@ -46,7 +54,7 @@
         <br>
         <label for="end-date">End-Date:</label>
         <div class='input-group date col-lg-3' id='datetimepicker2'>
-            <input type='text' class="form-control" name="end-date" id="end-date" />
+            <input type='text' class="form-control" name="end-date" id="end-date" value="{toStr}"/>
             <span class="input-group-addon">
                      <span class="glyphicon glyphicon-calendar"></span>
                      </span>
@@ -70,7 +78,7 @@
     <br>
     <hr>
     <h4>Bed selection</h4>
-    <form method="post" action="/patientTemplate/addPatientBed/{patientId}" >
+    <form method="post" action="/patientTemplate/addPatientBed/{patientId}?start-date={fromStr}&end-date={toStr}" >
         <label for="bedId">Available beds:</label>
         <select class="form-control" name="bedId" id="bedId">
             {#for bed in beds}
@@ -78,7 +86,7 @@
             {/for}
         </select>
         <br>
-        <button class="btn-dark btn" type="submit">Assign bed</button>
+        <button class="btn-dark btn" type="submit" {#if toStr == null} disabled {/if}>Assign bed</button>
         <br>
     </form>
     <br><br><br><br><br>
@@ -86,8 +94,6 @@
     <form class="col-lg-3">
         <input type="button" value="Go back" onclick="history.back()" class="btn btn-default">
     </form>
-    {!onclick="window.location.href='/patientTemplate/addPatientBed/{patientId}'"!}
-
 </div>
 
 {!https://www.solodev.com/blog/web-design/adding-a-datetime-picker-to-your-forms.stml!}

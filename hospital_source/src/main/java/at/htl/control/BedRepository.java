@@ -46,13 +46,14 @@ public class BedRepository {
     }
 
     @Transactional
-    public BedPatient addBedForPatient(Bed b, Patient p) {
+    public BedPatient addBedForPatient(Bed b, Patient p, LocalDateTime from, LocalDateTime to) {
         BedPatient bp = new BedPatient();
         BedPatientId id = new BedPatientId();
         id.setPatient(p);
         id.setBed(b);
         bp.setId(id);
-        bp.setFromDateTime(LocalDateTime.now());
+        bp.setFromDateTime(from);
+        bp.setToDateTime(to);
 
         return entityManager.merge(bp);
     }

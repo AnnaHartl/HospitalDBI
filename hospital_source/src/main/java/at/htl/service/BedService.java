@@ -38,8 +38,8 @@ public class BedService {
         return bedRepository.findBedById(id);
     }
 
-    public BedPatient addBedForPatient(Bed b, Patient p) {
-        return bedRepository.addBedForPatient(b, p);
+    public BedPatient addBedForPatient(Bed b, Patient p, LocalDateTime from, LocalDateTime to) {
+        return bedRepository.addBedForPatient(b, p,from,to);
     }
 
     public BedPatient findBedPatient(Patient p, Bed b) {
