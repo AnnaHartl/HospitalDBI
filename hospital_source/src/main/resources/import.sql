@@ -621,3 +621,33 @@ insert into nurse(person_id)
            (128),
            (129),
            (130);
+
+insert into specialization(name)
+    values ('Allergy and immunology'),
+           ('Anesthesiology'),
+           ('Medical genetics'),
+           ('Pathology'),
+           ('Psychiatry'),
+           ('Surgery');
+
+insert into doctor_specialization (doctor_id, specialization_id)
+    values (101,1),
+           (101,2),
+           (102,6),
+           (103,6),
+           (103,1),
+           (103,2),
+           (104,3),
+           (105,3),
+           (106,4),
+           (106,1),
+           (107,4),
+           (108,5),
+           (109,5),
+           (110,1),
+           (111,2),
+           (112,3),
+           (113,4),
+           (114,5),
+           (115,6),
+           (115,1);

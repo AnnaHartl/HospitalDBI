@@ -3,10 +3,7 @@ package at.htl.service;
 import at.htl.control.DoctorRepository;
 import at.htl.control.MedicalStaffRepository;
 import at.htl.control.NurseRepository;
-import at.htl.entity.Doctor;
-import at.htl.entity.MedicalStaff;
-import at.htl.entity.Nurse;
-import at.htl.entity.Room;
+import at.htl.entity.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
