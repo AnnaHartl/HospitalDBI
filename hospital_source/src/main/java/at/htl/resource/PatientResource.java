@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -224,7 +225,7 @@ public class PatientResource {
         System.out.println(patId+"   "+dId);
         Patient p = patientRepository.findPatientById(patId);
         Doctor doctor = doctorRepository.findDoctorById(dId);
-        patientRepository.addMedicalStaffForPatient(p, doctor);
+        patientRepository.addMedicalStaffForPatient(p, doctor, LocalDateTime.now(), LocalDateTime.now());
         return Templates.patientAdd();
     }
 

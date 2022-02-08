@@ -7,6 +7,7 @@ import at.htl.service.PatientService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("api/patient")
@@ -70,7 +71,7 @@ public class PatientApi {
     @POST
     @Path("addMedicalStaffForPatient")
     public PatientMedicalStaff addMedicalStaffForPatient(@QueryParam("patient") Long patientId, @QueryParam("medicalstaff") Long medicalStaff){
-        return patientService.addMedicalStaffForPatient(patientId, medicalStaff);
+        return patientService.addMedicalStaffForPatient(patientId, medicalStaff, LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Consumes(MediaType.APPLICATION_JSON)
