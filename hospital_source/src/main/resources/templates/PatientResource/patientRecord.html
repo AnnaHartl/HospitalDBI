@@ -61,18 +61,15 @@
         Firstname: {staff.id.medicalStaff.firstName} <br>
         Lastname: {staff.id.medicalStaff.lastName} <br>
         From: {staff.fromDateTime} <br>
-        {#if staff.toDateTime != null}
-            To: {staff.toDateTime} <br>
-        {/if}
-
         <br><br>
         {/if}
     {/for}
 
-    <button class="btn btn-primary"
-            onclick="window.location.href='/patientTemplate/addNurse/{patient.id}'">Add Nurse
-    </button>
-
+    <form action="/patientTemplate/addNurse/{patient.id}" method="post">
+        <label for="fromDateTime">From Date: </label>
+        <input name="fromDateTime" id="fromDateTime" type="datetime-local" value="2022-02-08T11:30">
+        <input type="submit" class="btn btn-primary" value="Add Nurse">
+    </form>
 
     <br><br>
     <h2>Doctors</h2>

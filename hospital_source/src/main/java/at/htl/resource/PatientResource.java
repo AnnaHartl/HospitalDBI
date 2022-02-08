@@ -264,10 +264,13 @@ public class PatientResource {
         return Templates.patientAdd();
     }
 
-    @GET
+    @POST
     @Path("addNurse/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance getAddNursePage(@PathParam("id") Long id) {
+    public TemplateInstance addNurse(@PathParam("id") Long id, @FormParam("fromDateTime") String fromDateTimeStr) {
+
+        LocalDateTime fromDateTime = LocalDateTime.parse(fromDateTimeStr);
+
         List<Nurse> nurses = nurseRepository.getAllNurses();
 
         //Random r = new Random();
@@ -275,7 +278,7 @@ public class PatientResource {
         System.out.println(number);
         Nurse nurse = nurses.get(number);
 
-        PatientMedicalStaff pn = patientService.addMedicalStaffForPatient(nurse.getId(),id, LocalDateTime.now(), LocalDateTime.now());
+        PatientMedicalStaff pn = patientService.addMedicalStaffForPatient(nurse.getId(),id, fromDateTime, null);
         return showRecordView(id);
     }
 }
