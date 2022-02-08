@@ -7,6 +7,7 @@ import at.htl.entity.*;
 import at.htl.id.BedPatientId;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 @ApplicationScoped
@@ -77,6 +78,19 @@ public class PatientService {
             return null;
 
         return patientRepository.addPatientCondition(p, c);
+    }
+
+    public PatientCondition addConditionForPatientWithTime(Long patientId, Long conditionId, LocalDate from, LocalDate to){
+        Condition c = conditionRepository.findConditionById(conditionId);
+        Patient p = patientRepository.findPatientById(patientId);
+
+        if(p == null)
+            return null;
+
+        if(c == null)
+            return null;
+
+        return patientRepository.addPatientConditionWithTime(p, c, from, to);
     }
 
     public PatientMedicalStaff addMedicalStaffForPatient(Long medicalStaffId, Long patientId){

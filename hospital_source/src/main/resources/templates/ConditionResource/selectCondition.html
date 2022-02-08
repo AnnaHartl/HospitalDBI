@@ -8,13 +8,24 @@
 <body>
     <h1 class="text-sm-center">Select Condition</h1>
     <div class="container">
-        <form id="form" method="get" action="/conditionTemplate/">
+        <form id="form" method="post" action="/conditionTemplate/addConditionToPatient">
             <div>
                 <select name="condition" id="condition" class="lstSelected">
                     {#for condition in conditions}
                         <option value="{condition.condition.id}">{condition.condition.name} {condition.amount}</option>
                     {/for}
                 </select>
+                <select name="patient" id="patient" class="lstSelected">
+                    {#for patient in patients}
+                        {#if patient.id == patientid}
+                            <option selected="selected" value="{patient.id}">{patient.lastName} {patient.firstName}</option>
+                            {#else}
+                                <option value="{patient.id}">{patient.lastName} {patient.firstName}</option>
+                        {/if}
+                    {/for}
+                </select>
+                <input type="date" id="from-Date" name="from-Date">
+                <input type="date" id="to-Date" name="to-Date">
                 <input type="submit" value="submit">
             </div>
         </form>

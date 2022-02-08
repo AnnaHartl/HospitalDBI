@@ -5,8 +5,10 @@ import at.htl.control.PatientRepository;
 import at.htl.control.SymptomRepository;
 import at.htl.dto.ConditionFilteredBySymptomDto;
 import at.htl.entity.Condition;
+import at.htl.entity.Patient;
 import at.htl.entity.Symptom;
 import at.htl.service.ConditionService;
+import at.htl.service.PatientService;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 
@@ -18,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +32,8 @@ public class ConditionResource {
     @Inject
     ConditionService conditionService;
     @Inject
+    PatientService patientService;
+    @Inject
     PatientRepository patientRepository;
     @Inject
     SymptomRepository symptomRepository;
@@ -36,8 +42,8 @@ public class ConditionResource {
     public static class Templates {
         public static native TemplateInstance condition(List<Condition> conditions, String filter, Long cid);
         public static native TemplateInstance conditionAdd();
-        public static native TemplateInstance filterConditionBySymptom(List<Symptom> symptoms);
-        public static native TemplateInstance selectCondition(List<ConditionFilteredBySymptomDto> conditions);
+        public static native TemplateInstance filterConditionBySymptom(List<Symptom> symptoms, List<Patient> patients, Long patientid);
+        public static native TemplateInstance selectCondition(List<ConditionFilteredBySymptomDto> conditions, List<Patient> patients, Long patientid);
     }
 
     @GET
@@ -100,24 +106,40 @@ public class ConditionResource {
         return Response.status(301).location(URI.create("/conditionTemplate")).build();
     }
 
+    @POST
+    @Path("addConditionToPatient")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addConditionToPatient(@FormParam("condition") Long conditionId,
+                                          @FormParam("patient") Long patientId,
+                                          @FormParam("from-Date") String fromDateStr,
+                                          @FormParam("to-Date") String toDateStr){
+        LocalDate fromDate = LocalDate.parse(fromDateStr);
+        LocalDate toDate = LocalDate.parse(toDateStr);
+
+        var pc =  patientService.addConditionForPatientWithTime(patientId, conditionId, fromDate, toDate);
+        System.out.println("TEST");
+        return Response.status(301).location(URI.create("/patientTemplate")).build();
+    }
+
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.TEXT_HTML)
-    @Path("getFilterBySymptomsPage")
-    public TemplateInstance getFilterBySymptomsPage(){
-        return Templates.filterConditionBySymptom(symptomRepository.getAllSymptoms());
+    @Path("getFilterBySymptomsPage/{patient_id}")
+    public TemplateInstance getFilterBySymptomsPage(@PathParam("patient_id") Long patientId){
+        return Templates.filterConditionBySymptom(symptomRepository.getAllSymptoms(), patientRepository.getAllPatients(), patientId);
     }
 
     @GET
     @Path("filterBySymptoms")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance filterConditionBySymptoms(@Context UriInfo uriInfo){
+    public TemplateInstance filterConditionBySymptoms(@Context UriInfo uriInfo, @QueryParam("patient") Long patientId){
 
         var valStr = uriInfo.getQueryParameters().get("symptom");
 
         List<ConditionFilteredBySymptomDto> condtions = conditionService.getConditionsFilteredBySymptoms(valStr);
 
-        return Templates.selectCondition(condtions);
+        return Templates.selectCondition(condtions, patientRepository.getAllPatients(), patientId);
     }
 }

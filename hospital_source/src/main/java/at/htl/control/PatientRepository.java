@@ -91,4 +91,16 @@ public class PatientRepository {
     public List<Condition> getCoditionStatisticForPatient(Long patientId){
         return null;
     }
+
+    @Transactional
+    public PatientCondition addPatientConditionWithTime(Patient p, Condition c, LocalDate from, LocalDate to) {
+        PatientConditionId id = new PatientConditionId();
+        id.setPatient(p);
+        id.setCondition(c);
+        PatientCondition pc = new PatientCondition();
+        pc.setId(id);
+        pc.setFromDate(from);
+        pc.setToDate(to);
+        return em.merge(pc);
+    }
 }
