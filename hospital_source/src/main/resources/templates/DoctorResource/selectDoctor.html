@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Condition</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-sm-center">Select Doctor</h1>
+<div class="container">
+    <form id="form" method="post" action="/doctorTemplate/addDoctorToPatient">
+        <div>
+            <select name="doctor" id="doctor" class="lstSelected">
+                {#for doctor in doctors}
+                    <option value="{doctor.doctor.id}">{doctor.doctor.firstName} {doctor.amount}</option>
+                {/for}
+            </select>
+            <select name="patient" id="patient" class="lstSelected">
+                {#for patient in patients}
+                    {#if patient.id == patientid}
+                        <option selected="selected" value="{patient.id}">{patient.lastName} {patient.firstName}</option>
+                        {#else}
+                            <option value="{patient.id}">{patient.lastName} {patient.firstName}</option>
+                    {/if}
+                {/for}
+            </select>
+            <input type="date" id="from-Date" name="from-Date">
+            <input type="date" id="to-Date" name="to-Date">
+            <input type="submit" value="submit">
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+</body>
+</html>
