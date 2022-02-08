@@ -1,5 +1,6 @@
 package at.htl.control;
 
+import at.htl.dto.ConditionFilteredBySymptomDto;
 import at.htl.entity.Condition;
 import at.htl.entity.Patient;
 
@@ -7,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -61,5 +63,11 @@ public class ConditionRepository {
                 Condition.class);
         query.setParameter("filter", '%' + filter + '%');
         return query.getResultList();
+    }
+
+    public List<ConditionFilteredBySymptomDto> getConditionsFilteredBySymptoms(ArrayList<Long> symptomIds) {
+        return em.createQuery("select new at.htl.dto.ConditionFilteredBySymptomDto(c, count(s)) from Condition c" +
+                " join c.symptoms s where s.id in (:symptoms) group by c order by count(s) desc", ConditionFilteredBySymptomDto.class)
+                .setParameter("symptoms", symptomIds).getResultList();
     }
 }

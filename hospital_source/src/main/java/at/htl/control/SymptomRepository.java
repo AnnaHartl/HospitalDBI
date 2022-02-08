@@ -49,4 +49,10 @@ public class SymptomRepository {
     public Symptom updateSymptom(Symptom symptom){
         return em.merge(symptom);
     }
+
+    public List<Symptom> getSymptomsFromNames(List<Long> val) {
+        return em.createQuery("select s from Symptom s where s.id in(:names)", Symptom.class)
+                .setParameter("names", val)
+                .getResultList();
+    }
 }

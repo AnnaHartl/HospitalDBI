@@ -3,10 +3,12 @@ package at.htl.service;
 import at.htl.control.ConditionRepository;
 import at.htl.control.PatientRepository;
 import at.htl.control.SymptomRepository;
+import at.htl.dto.ConditionFilteredBySymptomDto;
 import at.htl.entity.Condition;
 import at.htl.entity.Symptom;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -63,5 +65,12 @@ public class ConditionService {
         conditionRepository.updateCondition(c);
         symptomRepository.updateSymptom(s);
         return s;
+    }
+
+    public List<ConditionFilteredBySymptomDto> getConditionsFilteredBySymptoms(List<String> valStr) {
+        var symptomIds = new ArrayList<Long>();
+        for(String s : valStr) symptomIds.add(Long.valueOf(s));
+
+        return conditionRepository.getConditionsFilteredBySymptoms(symptomIds);
     }
 }
