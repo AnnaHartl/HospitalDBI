@@ -232,7 +232,7 @@ public class PatientResource {
     @GET
     @Path("addNurse/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance getAddNursePage(@org.jboss.resteasy.annotations.jaxrs.PathParam("id") Long id) {
+    public TemplateInstance getAddNursePage(@PathParam("id") Long id) {
         List<Nurse> nurses = nurseRepository.getAllNurses();
 
         Random r = new Random();
@@ -240,7 +240,7 @@ public class PatientResource {
         System.out.println(number);
         Nurse nurse = nurses.get(number);
 
-        PatientMedicalStaff pn =  patientService.addMedicalStaffForPatient(nurse.getId(),id);
+        PatientMedicalStaff pn =  patientService.addMedicalStaffForPatient(nurse.getId(),id, LocalDateTime.now(), LocalDateTime.now());
         return showRecord(id);
     }
 }

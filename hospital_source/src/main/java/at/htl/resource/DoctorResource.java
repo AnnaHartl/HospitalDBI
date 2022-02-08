@@ -56,8 +56,7 @@ public class DoctorResource {
         LocalDateTime toDate = LocalDateTime.parse(toDateStr);
 
         var pc =  patientService.addMedicalStaffForPatient(doctorId, patientId, fromDate, toDate);
-        System.out.println("TEST");
-        return Response.status(301).location(URI.create("/patientTemplate")).build();
+        return Response.status(301).location(URI.create("/patientTemplate/record/"+patientId)).build();
     }
 
     @GET
