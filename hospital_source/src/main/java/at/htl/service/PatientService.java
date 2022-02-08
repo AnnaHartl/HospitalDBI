@@ -7,6 +7,7 @@ import at.htl.entity.*;
 import at.htl.id.BedPatientId;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -93,6 +94,7 @@ public class PatientService {
         return patientRepository.addPatientConditionWithTime(p, c, from, to);
     }
 
+    @Transactional
     public PatientMedicalStaff addMedicalStaffForPatient(Long medicalStaffId, Long patientId){
         Patient p = patientRepository.findPatientById(patientId);
         MedicalStaff m = medicalStaffRepository.findMedicalStaffById(medicalStaffId);

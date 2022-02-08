@@ -2,6 +2,7 @@ package at.htl.resource;
 
 import at.htl.control.*;
 import at.htl.entity.*;
+import at.htl.service.PatientService;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 import org.jboss.logging.annotations.Pos;
@@ -13,11 +14,15 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Random;
 
 @Path("patientTemplate")
 public class PatientResource {
     @Inject
     PatientRepository patientRepository;
+
+    @Inject
+    PatientService patientService;
 
     @Inject
     ConditionRepository conditionRepository;
@@ -29,7 +34,7 @@ public class PatientResource {
     DoctorRepository doctorRepository;
 
     @Inject
-    MedicalStaffRepository medicalStaffRepository;
+    NurseRepository nurseRepository;
 
     @CheckedTemplate
     public static class Templates {
@@ -221,5 +226,20 @@ public class PatientResource {
         Doctor doctor = doctorRepository.findDoctorById(dId);
         patientRepository.addMedicalStaffForPatient(p, doctor);
         return Templates.patientAdd();
+    }
+
+    @GET
+    @Path("addNurse/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance getAddNursePage(@org.jboss.resteasy.annotations.jaxrs.PathParam("id") Long id) {
+        List<Nurse> nurses = nurseRepository.getAllNurses();
+
+        Random r = new Random();
+        int number =(int) (Math.random() * nurses.size());
+        System.out.println(number);
+        Nurse nurse = nurses.get(number);
+
+        PatientMedicalStaff pn =  patientService.addMedicalStaffForPatient(nurse.getId(),id);
+        return showRecord(id);
     }
 }

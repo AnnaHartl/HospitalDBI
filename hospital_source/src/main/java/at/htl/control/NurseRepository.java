@@ -24,14 +24,14 @@ public class NurseRepository {
 
     //CREATE
     @Transactional
-    public void addNurse(Nurse condition){
-        em.persist(condition);
+    public void addNurse(Nurse nurse){
+        em.persist(nurse);
     }
 
     //UPDATE
     @Transactional
-    public Nurse updateNurse(Nurse condition){
-        return em.merge(condition);
+    public Nurse updateNurse(Nurse nurse){
+        return em.merge(nurse);
     }
 
     //DELETE
