@@ -93,7 +93,7 @@ public class PatientService {
         return patientRepository.addPatientConditionWithTime(p, c, from, to);
     }
 
-    public PatientMedicalStaff addMedicalStaffForPatient(Long medicalStaffId, Long patientId){
+    public PatientMedicalStaff addMedicalStaffForPatient(Long medicalStaffId, Long patientId, LocalDateTime from, LocalDateTime to){
         Patient p = patientRepository.findPatientById(patientId);
         MedicalStaff m = medicalStaffRepository.findMedicalStaffById(medicalStaffId);
 
@@ -103,7 +103,7 @@ public class PatientService {
         if(m == null)
             return null;
 
-        return patientRepository.addMedicalStaffForPatient(p, m);
+        return patientRepository.addMedicalStaffForPatient(p, m, from, to);
     }
 
     public void PatientLeavesBed(Long patientId, Long bedId){

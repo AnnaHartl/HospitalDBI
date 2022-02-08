@@ -58,12 +58,14 @@ public class PatientRepository {
         return em.merge(pc);
     }
 
-    public PatientMedicalStaff addMedicalStaffForPatient(Patient p, MedicalStaff m) {
+    public PatientMedicalStaff addMedicalStaffForPatient(Patient p, MedicalStaff m, LocalDateTime from, LocalDateTime to) {
         PatientMedicalStaffId id = new PatientMedicalStaffId();
         id.setPatient(p);
         id.setMedicalStaff(m);
         PatientMedicalStaff pm = new PatientMedicalStaff();
         pm.setId(id);
+        pm.setFromDateTime(from);
+        pm.setToDateTime(to);
         return em.merge(pm);
     }
 

@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("doctorTemplate")
@@ -51,10 +52,10 @@ public class DoctorResource {
                                           @FormParam("patient") Long patientId,
                                           @FormParam("from-Date") String fromDateStr,
                                           @FormParam("to-Date") String toDateStr){
-        LocalDate fromDate = LocalDate.parse(fromDateStr);
-        LocalDate toDate = LocalDate.parse(toDateStr);
+        LocalDateTime fromDate = LocalDateTime.parse(fromDateStr);
+        LocalDateTime toDate = LocalDateTime.parse(toDateStr);
 
-        var pc =  patientService.addMedicalStaffForPatient(doctorId, patientId);
+        var pc =  patientService.addMedicalStaffForPatient(doctorId, patientId, fromDate, toDate);
         System.out.println("TEST");
         return Response.status(301).location(URI.create("/patientTemplate")).build();
     }
