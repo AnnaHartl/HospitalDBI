@@ -4,40 +4,99 @@
     <meta charset="UTF-8">
     <title>Patient Bed</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    {!<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>!}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
 </head>
 <body>
 <h1 class="text-sm-center">Patient Beds</h1>
-
-
 <div class="container">
+
     <h3>Select Bed for Patient #{patientId}</h3>
-    <form method="post" action="/patientTemplate/addPatientBed/{patientId}">
-        <!--{#for bed in beds}
-        <div class="form-check">
-            <input class="form-check-input" type="" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                {bed.bedNumber}
-            </label>
-        </div>
-        {/for}-->
-        <select class="form-control" name="bedId" id="bedId">
-            {#for bed in beds}
-                <option  value="{bed.id}">{bed.bedNumber} {bed.room.station.name}</option>
+    <hr>
+    <h4>Filters</h4>
+    <form method="get" action="/patientTemplate/addBed/filter/{patientId}">
+        <label for="room-type">Room-Type:</label>
+        <select name="room-type" id="room-type" class="form-select">
+            {#for rt in roomTypes}
+                <option value="{rt.id}">{rt.name}</option>
+            {/for}
+        </select>
+        <br>
+        <label for="station">Station:</label>
+        <select name="station" id="station" class="form-select">
+            {#for s in stations}
+                <option value="{s.id}">{s.name}</option>
             {/for}
         </select>
 
         <br>
-        <input type="submit" value="Submit" class="btn-dark btn">
+        <label for="start-date">Begin-Date:</label>
+        <div class='input-group date col-lg-3' id='datetimepicker1'>
+            <input type='text' class="form-control" name="start-date" id="start-date" />
+            <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+        </div>
+        <br>
+        <label for="end-date">End-Date:</label>
+        <div class='input-group date col-lg-3' id='datetimepicker2'>
+            <input type='text' class="form-control" name="end-date" id="end-date" />
+            <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+        </div>
+
+        <!--<label for="from-Date">From-Date:</label>
+        <input type="datetime-local" id="from-Date"
+                                              name="from-Date" value="2018-06-12T19:30"
+                                              min="2018-06-07T00:00" max="2018-06-14T00:00">
+        <label for="to-Date">To-Date:</label>
+        <input type="datetime-local" id="to-Date"
+                                            name="to-Date" value="2018-06-12T19:30"
+                                            min="2018-06-07T00:00" max="2018-06-14T00:00">-->
+
+        <br>
+
+        {!<input type="datetime-local" name="end-date" id="end-date" >!}
+
+        <input type="submit" value="Search" class="btn btn-dark">
     </form>
     <br>
-    <button class="btn-dark btn"
-            onclick="window.location.href='/patientTemplate/newBed/{patientId}'">
-        Add new Bed
-    </button>
+    <hr>
+    <h4>Bed selection</h4>
+    <form method="post" action="/patientTemplate/addPatientBed/{patientId}" >
+        <label for="bedId">Available beds:</label>
+        <select class="form-control" name="bedId" id="bedId">
+            {#for bed in beds}
+                <option value="{bed.id}">Bed #{bed.bedNumber} - {bed.room.station.name}</option>
+            {/for}
+        </select>
+        <br>
+        <button class="btn-dark btn" type="submit">Assign bed</button>
+        <br>
+    </form>
+    <br><br><br><br><br>
+    <hr>
+    <form class="col-lg-3">
+        <input type="button" value="Go back" onclick="history.back()" class="btn btn-default">
+    </form>
+    {!onclick="window.location.href='/patientTemplate/addPatientBed/{patientId}'"!}
+
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+{!https://www.solodev.com/blog/web-design/adding-a-datetime-picker-to-your-forms.stml!}
+<script>
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker2').datetimepicker();
+    });
+</script>
+
 </body>
 </html>

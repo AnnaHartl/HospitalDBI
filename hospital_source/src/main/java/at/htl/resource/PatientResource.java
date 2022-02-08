@@ -3,27 +3,25 @@ package at.htl.resource;
 import at.htl.control.*;
 import at.htl.entity.*;
 import at.htl.service.PatientService;
+import at.htl.service.BedService;
+import at.htl.service.RoomTypeService;
+import at.htl.service.StationService;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
-import org.jboss.logging.annotations.Pos;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 @Path("patientTemplate")
 public class PatientResource {
     @Inject
     PatientRepository patientRepository;
-
-    @Inject
-    PatientService patientService;
 
     @Inject
     ConditionRepository conditionRepository;
@@ -37,15 +35,35 @@ public class PatientResource {
     @Inject
     NurseRepository nurseRepository;
 
+    private final RoomTypeService roomTypeService;
+    private final StationService stationService;
+    private final BedService bedService;
+    private final PatientService patientService;
+
+    public PatientResource(RoomTypeService roomTypeService, StationService stationService, BedService bedService, PatientService patientService) {
+        this.roomTypeService = roomTypeService;
+        this.stationService = stationService;
+        this.bedService = bedService;
+        this.patientService = patientService;
+    }
+
     @CheckedTemplate
     public static class Templates {
         public static native TemplateInstance patients(List<Patient> patients, String filter);
+
         public static native TemplateInstance patientUpdate(Patient patient);
+
         public static native TemplateInstance patientRecord(Patient patient);
+
         public static native TemplateInstance addCondition(Long patientId, List<Condition> conditions);
+
         public static native TemplateInstance newCondition(Long patientId);
+
         public static native TemplateInstance patientAdd();
-        public static native TemplateInstance addBed(Long patientId, List<Bed> beds);
+
+        public static native TemplateInstance addBed(Long patientId, List<RoomType> roomTypes, List<Station> stations,
+                                                     LocalDateTime from, LocalDateTime to, List<Bed> beds);
+        //public static native TemplateInstance addBed(Long patientId, List<Bed> beds);
         public static native TemplateInstance addDoctor(Long patientId, List<Doctor> doctors);
     }
 
@@ -70,8 +88,8 @@ public class PatientResource {
     @Path("detail/{id}")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance showDetail(@PathParam("id") Long patientId){
-        System.out.println("ID: "+patientId);
+    public TemplateInstance showDetailView(@PathParam("id") Long patientId) {
+        System.out.println("ID: " + patientId);
         return Templates.patientUpdate(patientRepository.findPatientById(patientId));
     }
 
@@ -80,13 +98,13 @@ public class PatientResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
     @Transactional
-    public TemplateInstance update(@PathParam("id") Long id,
-                                   @FormParam("fn") String  fn,
-                                   @FormParam("ln") String ln,
-                                   @FormParam("height") double height,
-                                   @FormParam("weight") double weight
-                                   ){
-        System.out.println("Name: "+height);
+    public TemplateInstance updatePatientRecord(@PathParam("id") Long id,
+                                                @FormParam("fn") String fn,
+                                                @FormParam("ln") String ln,
+                                                @FormParam("height") double height,
+                                                @FormParam("weight") double weight
+    ) {
+        System.out.println("Name: " + height);
 
         Patient p = patientRepository.findPatientById(id);
         p.setFirstName(fn);
@@ -101,7 +119,7 @@ public class PatientResource {
     @Path("detailAdd")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance showDetailAdd(){
+    public TemplateInstance showDetailAddView() {
         return Templates.patientAdd();
     }
 
@@ -110,12 +128,12 @@ public class PatientResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
     @Transactional
-    public TemplateInstance add(@FormParam("fn") String  fn,
-                           @FormParam("ln") String ln,
-                           @FormParam("height") double height,
-                           @FormParam("weight") double weight
-    ){
-        System.out.println("Name: "+height);
+    public TemplateInstance add(@FormParam("fn") String fn,
+                                @FormParam("ln") String ln,
+                                @FormParam("height") double height,
+                                @FormParam("weight") double weight
+    ) {
+        System.out.println("Name: " + height);
 
         Patient p = new Patient();
         p.setFirstName(fn);
@@ -123,8 +141,7 @@ public class PatientResource {
         p.setHeight(height);
         p.setWeight(weight);
         p = patientRepository.addPatient(p);
-
-        Long i = p.getId();
+        //Long id = p.getId();
 
         return Templates.patientAdd();
     }
@@ -133,7 +150,7 @@ public class PatientResource {
     @Path("record/{id}")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance showRecord(@PathParam("id") Long patientId){
+    public TemplateInstance showRecordView(@PathParam("id") Long patientId) {
         Patient p = patientRepository.findPatientById(patientId);
         return Templates.patientRecord(p);
     }
@@ -142,7 +159,7 @@ public class PatientResource {
     @Path("addCondition/{id}")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance addCondition(@PathParam("id") Long patientId){
+    public TemplateInstance addConditionView(@PathParam("id") Long patientId) {
         return Templates.addCondition(patientId, conditionRepository.getAllConditions());
     }
 
@@ -150,7 +167,7 @@ public class PatientResource {
     @Path("newCondition/{id}")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance newCondition(@PathParam("id") Long patientId){
+    public TemplateInstance newConditionView(@PathParam("id") Long patientId) {
         return Templates.newCondition(patientId);
     }
 
@@ -160,9 +177,9 @@ public class PatientResource {
     @Produces(MediaType.TEXT_HTML)
     @Transactional
     public TemplateInstance addNewCondition(@PathParam("id") Long id,
-                                   @FormParam("name") String  name,
-                                   @FormParam("description") String description
-    ){
+                                            @FormParam("name") String name,
+                                            @FormParam("description") String description
+    ) {
 
         conditionRepository.addCondition(new Condition(name, description));
         return Templates.addCondition(id, conditionRepository.getAllConditions());
@@ -173,8 +190,8 @@ public class PatientResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance addPatientCondition(@PathParam("patientId") Long patId,
-                                            @FormParam("conditionId") Long  conId
-    ){
+                                                @FormParam("conditionId") Long conId
+    ) {
         Patient p = patientRepository.findPatientById(patId);
         Condition c = conditionRepository.findConditionById(conId);
         patientRepository.addPatientCondition(p, c);
@@ -182,11 +199,29 @@ public class PatientResource {
     }
 
     @GET()
+    @Path("addBed/filter/{id}")
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance addBedViewFiltered(@PathParam("id") Long patientId,
+                                               @DefaultValue("0") @QueryParam("room-type") Long roomTypeId,
+                                               @DefaultValue("0") @QueryParam("station") Long stationId,
+                                               @DefaultValue("") @QueryParam("start-date") String fromStr,
+                                               @DefaultValue("") @QueryParam("end-date") String toStr) {
+        LocalDateTime from = fromStr.isEmpty() ? null : LocalDateTime.parse(fromStr, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a").localizedBy(Locale.US));
+        LocalDateTime to = toStr.isEmpty() ? null : LocalDateTime.parse(toStr,DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a").localizedBy(Locale.US));
+
+        return Templates.addBed(patientId, roomTypeService.getAllRoomTypes(),
+                stationService.getAllStations(), from, to,
+                bedService.findAvailableBeds(stationId, roomTypeId, from, to));
+    }
+
+    @GET()
     @Path("addBed/{id}")
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance addBed(@PathParam("id") Long patientId){
-        return Templates.addBed(patientId, bedRepository.getAllBeds());
+    public TemplateInstance addBedView(@PathParam("id") Long patientId) {
+        return Templates.addBed(patientId, roomTypeService.getAllRoomTypes(),
+                stationService.getAllStations(), null, null, bedService.getAllBeds());
     }
 
 
@@ -194,15 +229,15 @@ public class PatientResource {
     @Path("addPatientBed/{patientId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
-    @Transactional
-    public TemplateInstance addPatientBed(@PathParam("patientId") Long patId,
-                                                @FormParam("bedId") Long  bId
-    ){
-        System.out.println(patId+"   "+bId);
+    public TemplateInstance addBedPatient(@PathParam("patientId") Long patId,
+                                          @FormParam("bedId") Long bId
+    ) {
+        System.out.println(patId + "   " + bId);
         Patient p = patientRepository.findPatientById(patId);
         Bed bed = bedRepository.findBedById(bId);
-        bedRepository.addBedForPatient(bed,p);
-        return Templates.patientAdd();
+        bedRepository.addBedForPatient(bed, p);
+        //return Response.status(301).location(URI.create("/patientTemplate")).build();
+        return Templates.patientRecord(p);
     }
 
 
@@ -235,12 +270,12 @@ public class PatientResource {
     public TemplateInstance getAddNursePage(@PathParam("id") Long id) {
         List<Nurse> nurses = nurseRepository.getAllNurses();
 
-        Random r = new Random();
+        //Random r = new Random();
         int number =(int) (Math.random() * nurses.size());
         System.out.println(number);
         Nurse nurse = nurses.get(number);
 
-        PatientMedicalStaff pn =  patientService.addMedicalStaffForPatient(nurse.getId(),id, LocalDateTime.now(), LocalDateTime.now());
-        return showRecord(id);
+        PatientMedicalStaff pn = patientService.addMedicalStaffForPatient(nurse.getId(),id, LocalDateTime.now(), LocalDateTime.now());
+        return showRecordView(id);
     }
 }

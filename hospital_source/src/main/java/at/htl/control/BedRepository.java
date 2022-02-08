@@ -3,7 +3,6 @@ package at.htl.control;
 import at.htl.entity.Bed;
 import at.htl.entity.BedPatient;
 import at.htl.entity.Patient;
-import at.htl.entity.Room;
 import at.htl.id.BedPatientId;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -46,6 +45,7 @@ public class BedRepository {
         return entityManager.merge(bed);
     }
 
+    @Transactional
     public BedPatient addBedForPatient(Bed b, Patient p) {
         BedPatient bp = new BedPatient();
         BedPatientId id = new BedPatientId();
@@ -63,5 +63,38 @@ public class BedRepository {
                 .setParameter("bed", b)
                 .setParameter("patient", p).getResultList()
                 .stream().findFirst().orElse(null);
+    }
+
+    public List<Bed> findAvailableBeds(Long stationId, Long roomTypeId, LocalDateTime from, LocalDateTime to) {
+        var availableBeds = entityManager
+                .createQuery("select b from Bed b " +
+                        "where b.room.station.id = :STATION_ID " +
+                        "and b.room.roomType.id = :ROOMTYPE_ID " +
+                        "and not b.id in " +
+                        "(select bp.id.bed.id from b.patients bp " +
+                        "where :FROM < coalesce(bp.toDateTime,:MAX_TIMESTAMP) and :TO > bp.fromDateTime)", Bed.class)
+                .setParameter("STATION_ID",stationId)
+                .setParameter("ROOMTYPE_ID",roomTypeId)
+                .setParameter("FROM", from)
+                .setParameter("TO", to)
+                .setParameter("MAX_TIMESTAMP",
+                        LocalDateTime.of(9999,12,31,23,59,59))
+                .getResultList();
+
+        /*var x = entityManager.createQuery("select bp.id.bed.id from Bed b join b.patients bp " +
+                        "where :FROM < coalesce(bp.toDateTime,:MAX_TIMESTAMP) and :TO > bp.fromDateTime")
+                .setParameter("FROM", from)
+                .setParameter("TO", to)
+                .setParameter("MAX_TIMESTAMP",LocalDateTime.of(9999,12,31,23,59,59))
+                .getResultList();*/
+
+        System.out.println(availableBeds);
+        return availableBeds;
+
+    }
+
+    public List<Bed> getAllBedsByRoomId(Long id) {
+        return entityManager.createQuery("Select b from Bed b where b.room.id = :id", Bed.class)
+                .setParameter("id", id).getResultList();
     }
 }

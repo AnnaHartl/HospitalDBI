@@ -5,6 +5,7 @@ import at.htl.service.BedService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("api/bed")
@@ -49,5 +50,25 @@ public class BedApi {
     @Path("addBed")
     public void addBed(Bed bed) {
         bedService.addBed(bed);
+    }
+
+    @Path("getAllBedsByRoomId/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Bed> getAllBedsByRoomId(@PathParam("id") Long id) {
+        return bedService.getAllBedsByRoomId(id);
+    }
+
+    // add endpoint that returns beds that are not occupied
+    @Path("findAvailableBeds")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Bed> findAvailableBeds(@QueryParam("startDateTime") String startDateTime,
+                                       @QueryParam("endDateTime") String endDateTime,
+                                       @QueryParam("roomTypeId") Long roomTypeId,
+                                       @QueryParam("stationId") Long stationId) {
+        var start = LocalDateTime.parse(startDateTime);
+        var end = LocalDateTime.parse(endDateTime);
+        return bedService.findAvailableBeds(stationId,roomTypeId,start,end);
     }
 }

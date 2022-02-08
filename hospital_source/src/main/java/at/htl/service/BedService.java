@@ -4,9 +4,9 @@ import at.htl.control.BedRepository;
 import at.htl.entity.Bed;
 import at.htl.entity.BedPatient;
 import at.htl.entity.Patient;
-import at.htl.entity.Room;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -44,5 +44,13 @@ public class BedService {
 
     public BedPatient findBedPatient(Patient p, Bed b) {
         return bedRepository.findBedPatient(p, b);
+    }
+
+    public List<Bed> findAvailableBeds(Long stationId, Long roomTypeId, LocalDateTime from, LocalDateTime to) {
+        return bedRepository.findAvailableBeds(stationId,roomTypeId,from,to);
+    }
+
+    public List<Bed> getAllBedsByRoomId(Long id) {
+        return bedRepository.getAllBedsByRoomId(id);
     }
 }
