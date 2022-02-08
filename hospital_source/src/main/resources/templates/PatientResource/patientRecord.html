@@ -52,6 +52,26 @@
     <button class="btn btn-primary"
             onclick="window.location.href='/patientTemplate/addBed/{patient.id}'">Add Bed
     </button>
+
+
+    <br><br>
+    <h2>Nurses</h2>
+    {#for staff in patient.medicalStaff}
+        {#if staff.id.medicalStaff.isNurse}
+        Firstname: {staff.id.medicalStaff.firstName} <br>
+        Lastname: {staff.id.medicalStaff.lastName} <br>
+        From: {staff.fromDateTime} <br>
+        {#if staff.toDateTime != null}
+            To: {staff.toDateTime} <br>
+        {/if}
+
+        <br><br>
+        {/if}
+    {/for}
+
+    <button class="btn btn-primary"
+            onclick="window.location.href='/nurseTemplate/addNurse/{patient.id}'">Add Nurse
+    </button>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

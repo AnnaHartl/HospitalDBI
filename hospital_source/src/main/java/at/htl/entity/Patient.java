@@ -15,6 +15,8 @@ public class Patient extends Person {
     private List<PatientCondition> conditions;
     @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
     private List<BedPatient> beds;
+    @OneToMany(mappedBy = "id.patient", cascade = CascadeType.PERSIST)
+    private List<PatientMedicalStaff> medicalStaff;
 
     public double getWeight() {
         return weight;
@@ -78,5 +80,13 @@ public class Patient extends Person {
 
     public void setLastName(String lastName) {
         super.setLastName(lastName);
+    }
+
+    public List<PatientMedicalStaff> getMedicalStaff() {
+        return medicalStaff;
+    }
+
+    public void setMedicalStaff(List<PatientMedicalStaff> medicalStaff) {
+        this.medicalStaff = medicalStaff;
     }
 }

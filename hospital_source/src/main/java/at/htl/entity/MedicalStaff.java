@@ -1,5 +1,7 @@
 package at.htl.entity;
 
+import io.quarkus.qute.TemplateExtension;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -27,5 +29,13 @@ public class MedicalStaff extends Person{
 
     public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
+    }
+
+
+    @TemplateExtension
+    static class MedicalStaffExtension {
+        static boolean isNurse(MedicalStaff med) {
+            return med instanceof Nurse;
+        }
     }
 }
