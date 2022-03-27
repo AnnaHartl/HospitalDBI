@@ -96,7 +96,7 @@ return ($b/price, $b/year)
 
 == XSD
 
-=== Beispiel mit Begriffserklärung
+=== Example
 
 [source,xml]
 ----
@@ -129,17 +129,32 @@ elementFormDefault="qualified">
 </xs:schema>
 ----
 
-https://www.torsten-horn.de/techdocs/java-xsd.htm
+[source,xml]
+----
+ <xsd:element name=”Employee” minOccurs=”0″ maxOccurs=”unbounded”>
+----
 
-element: Definiert die einzelnen XML-Elemente.
+name: This attribute specifies the name of an element. “Employee”in our example.
+
+element: Defines the XML-Elements
 
 sequence: Definiert eine geordnete Struktur mit fester Reihenfolge. Die Alternative wäre all.
 
-minOccurs und maxOccurs: Wenn diese Angaben fehlen, muss das Element genau einmal vorhanden sein. minOccurs="0" erlaubt das Fehlen dieses Elements. maxOccurs="unbounded" erlaubt eine beliebige Anzahl der Elemente.
+minOccurs: This attribute will specify how many elements at a Minimum will be allowed. The default is ‘0″, which means it is an optional element.
 
-attribute: Definiert Attribute (alternativ zum element).
+maxOccurs: This attribute will specify how many elements at a Maximum will be allowed in an XML document. Assume that maxOccurs attribute carries a value of “2”. This would mean the “Employee” element should NOT be specified more than twice.
 
-xs:string, xs:positiveInteger, xs:date: Vordefinierte Datentypen.
+To summarize, let’s say the minOccurs is “1” and maxOccurs is “2” for the “Employee” element. This means there should be at least one instance of the “Employee” element in the XML document, but the total number of instances of “Employee” element shouldn’t exceed two.
+
+If you tried passing three instances of “Employee” element in the XML document, the XML parser will throw an error.
+
+To allow the “Employee” element to be specified an unlimited number of times in an XML document, specify the “unbounded” value in the maxOccurs attribute.
+
+The following example states that the “Employee” element can occur an unlimited number of times in an XML document.
+
+attribute: Defines attributes
+
+xs:string, xs:positiveInteger, xs:date: predefined data types
 
 complexType: Definiert kompliziertere Elemente, z.B. Elemente mit Kindelementen und/oder Attributen. Beachten Sie, dass auch das leere firma-Element als complexType definiert wird, allerdings als leerer. Falls außer Kindelementen und/oder Attributen auch ein Elementinhalt erlaubt sein soll, muss mixed="true" gesetzt werden.
 
