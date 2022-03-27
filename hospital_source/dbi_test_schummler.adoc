@@ -2,7 +2,29 @@
 
 == XPath
 
-'//bar' -> Alle bars im ganzen Dokument
+<foo baz="5"><bar>25</bar></foo>
+
+|===
+|Command |Meaning
+
+|/foo/bar
+|Selects all bar's of foo (with foo as a parent of bar)
+
+|//bar
+|Select all bar’s (in the whole document
+
+|/foo[bar>20]
+|Sub-Element (child) condition for foo filtering
+
+|foo[@baz<10]
+|Attribute condition for foo filtering
+
+|last()
+|Gets the last element
+|===
+
+
+
 
 /foo/bar -> Alle bars die foo als parent haben
 
