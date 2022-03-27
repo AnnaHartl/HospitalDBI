@@ -1,0 +1,13 @@
+= XPath and XQuery
+
+== XPath
+
+'//bar' -> Alle bars im ganzen Dokument
+
+/foo/bar -> Alle bars die foo als parent haben
+
+/foo[bar>20] -> Subelement(Child) wird nach Bedingung gefiltert
+
+/foo[@baz<10] -> Attribut wird nach Bedingung gefiltert
+
+== XQuery
