@@ -93,3 +93,82 @@ return ($b/price, $b/year)
 ----
 
 -> You can return multiple values
+
+== XSD
+
+=== Beispiel mit Begriffserklärung
+
+[source,xml]
+----
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns="http://meinnamespace.meinefirma.de"
+targetNamespace="http://meinnamespace.meinefirma.de"
+elementFormDefault="qualified">
+<xs:element name="adressen">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="adresse" minOccurs="0" maxOccurs="unbounded">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="firma" minOccurs="0"> <xs:complexType /> </xs:element>
+<xs:element name="name"  type="xs:string" />
+<xs:choice>
+<xs:element name="strasse"  type="xs:string" minOccurs="0" />
+<xs:element name="postfach" type="xs:positiveInteger" minOccurs="0" />
+</xs:choice>
+<xs:element name="plz" type="xs:positiveInteger" minOccurs="0" />
+<xs:element name="ort" type="xs:string" minOccurs="0" />
+</xs:sequence>
+<xs:attribute name="datum" type="xs:date" />
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+----
+
+https://www.torsten-horn.de/techdocs/java-xsd.htm
+
+element: Definiert die einzelnen XML-Elemente.
+
+sequence: Definiert eine geordnete Struktur mit fester Reihenfolge. Die Alternative wäre all.
+
+minOccurs und maxOccurs: Wenn diese Angaben fehlen, muss das Element genau einmal vorhanden sein. minOccurs="0" erlaubt das Fehlen dieses Elements. maxOccurs="unbounded" erlaubt eine beliebige Anzahl der Elemente.
+
+attribute: Definiert Attribute (alternativ zum element).
+
+xs:string, xs:positiveInteger, xs:date: Vordefinierte Datentypen.
+
+complexType: Definiert kompliziertere Elemente, z.B. Elemente mit Kindelementen und/oder Attributen. Beachten Sie, dass auch das leere firma-Element als complexType definiert wird, allerdings als leerer. Falls außer Kindelementen und/oder Attributen auch ein Elementinhalt erlaubt sein soll, muss mixed="true" gesetzt werden.
+
+Die Kindselemente werden nicht lokal definiert, sondern per ref referenziert.
+
+=== Enumeration
+
+[source,xml]
+----
+<xs:simpleType name="color" final="restriction"
+>
+<xs:restriction base="xs:string">
+<xs:enumeration value="green" />
+<xs:enumeration value="red" />
+<xs:enumeration value="blue" />
+</xs:restriction>
+</xs:simpleType>
+----
+
+=== Range Constraint
+
+[source, xml]
+----
+<xs:element name="age">
+<xs:simpleType>
+<xs:restriction base="xs:integer">
+<xs:minInclusive value="0"/>
+<xs:maxInclusive value="100"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+----
