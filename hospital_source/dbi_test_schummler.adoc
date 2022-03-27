@@ -1,4 +1,4 @@
-= XPath and XQuery
+= XPath, XQuery and XSD
 
 == XPath
 
@@ -52,7 +52,7 @@ return $x/title
 |===
 |Command |Meaning
 
-|for $x in [doc() | XPath expr.]
+|for $x in [doc() ¦ XPath expr.]
 |Define data source and ’row’ variable
 
 |let $n := <a value>
@@ -64,7 +64,7 @@ return $x/title
 |order by $x [descending]
 |Orders the remaining ’rows’
 
-|return $x[/foo | /@bar]
+|return $x[/foo ¦ /@bar]
 |Returns the ’row’ or a subset of it
 
 |functx:line-count($x)
