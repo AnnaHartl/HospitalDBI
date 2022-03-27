@@ -114,6 +114,13 @@ return ($b/price, $b/year)
 
 -> You can return multiple values
 
+----
+for $x in sum(//recipe//nutrition[@protein > 20]/@fat)
+return $x
+----
+
+-> how to make a sum
+
 == XSD
 
 === Example
