@@ -2,6 +2,8 @@
 
 == XPath
 
+=== Command Overview
+
 <foo baz="5"><bar>25</bar></foo>
 
 |===
@@ -24,12 +26,70 @@
 |===
 
 
-
-
-/foo/bar -> Alle bars die foo als parent haben
-
-/foo[bar>20] -> Subelement(Child) wird nach Bedingung gefiltert
-
-/foo[@baz<10] -> Attribut wird nach Bedingung gefiltert
-
 == XQuery
+
+XQuery is a superset of XPath
+
+=== Quick overview
+----
+for $x in doc("books.xml")/books/book
+where $x/price>30
+order by $x/title
+return $x/title
+----
+
+=== FLOWR
+
+* For
+* Let
+* Where
+* Order
+* Return
+
+
+=== Command Overview
+
+|===
+|Command |Meaning
+
+|for $x in [doc() | XPath expr.]
+|Define data source and ’row’ variable
+
+|let $n := <a value>
+|Assigns a value (values) to a variable
+
+|where $x <condition>
+|Filters ’rows’ fulfilling the condition
+
+|order by $x [descending]
+|Orders the remaining ’rows’
+
+|return $x[/foo | /@bar]
+|Returns the ’row’ or a subset of it
+
+|functx:line-count($x)
+|Returns the line count
+
+|sum()
+|Returns the sum
+
+|===
+
+=== Examples
+
+----
+for $b in //book
+where $b/@id = 2 or $b/year > 2015
+return $b/title
+----
+
+-> Returns the titles of the books which have the id 2 or were written after 2015
+
+
+----
+for $b in //book
+where fn:tokenize($b/[author])[2] = ’Knuth’
+return ($b/price, $b/year)
+----
+
+-> You can return multiple values
