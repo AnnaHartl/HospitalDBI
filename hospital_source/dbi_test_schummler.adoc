@@ -21,8 +21,20 @@
 |foo[@baz<10]
 |Attribute condition for foo filtering
 
-|last()
+|//foo[last()]
 |Gets the last element
+
+|//foo/@bar
+| Get Attribute of Element
+
+|//foo//text()
+| Only get the text of the element
+
+|//foo[bar]
+| Only get Elements who have that child element
+
+|//foo[bar = 'test']
+|Child element who has this text
 |===
 
 
@@ -73,6 +85,7 @@ return $x/title
 |sum()
 |Returns the sum
 
+
 |===
 
 === Examples
@@ -85,6 +98,13 @@ return $b/title
 
 -> Returns the titles of the books which have the id 2 or were written after 2015
 
+----
+import module namespace functx = ’http://www.functx.com’;
+for $x in //recipe[title = 'Zuppa Inglese']//step/text()
+where functx:line-count($x) > 1
+return $x
+----
+-> counts the lines of all steps and only prints out steps that are more than 1 line long
 
 ----
 for $b in //book
@@ -105,10 +125,10 @@ return ($b/price, $b/year)
 xmlns="http://meinnamespace.meinefirma.de"
 targetNamespace="http://meinnamespace.meinefirma.de"
 elementFormDefault="qualified">
-    <xs:element name="adressen"> <1>
+    <xs:element name="adressen">
         <xs:complexType>
-            <xs:sequence> <3>
-                <xs:element name="adresse" minOccurs="0" maxOccurs="unbounded"> <2>
+            <xs:sequence>
+                <xs:element name="adresse" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="firma" minOccurs="0">
@@ -116,13 +136,13 @@ elementFormDefault="qualified">
                             </xs:element>
                             <xs:element name="name"  type="xs:string" />
                             <xs:choice>
-                                <xs:element name="strasse"  type="xs:string" minOccurs="0" /> <4>
+                                <xs:element name="strasse"  type="xs:string" minOccurs="0" />
                                 <xs:element name="postfach" type="xs:positiveInteger" minOccurs="0" />
                             </xs:choice>
                             <xs:element name="plz" type="xs:positiveInteger" minOccurs="0" />
                             <xs:element name="ort" type="xs:string" minOccurs="0" />
                         </xs:sequence>
-                        <xs:attribute name="datum" type="xs:date" /> <5>
+                        <xs:attribute name="datum" type="xs:date" />
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
@@ -136,15 +156,15 @@ elementFormDefault="qualified">
  <xsd:element name=”Employee” minOccurs=”0″ maxOccurs=”unbounded”>
 ----
 
-<1> name: This attribute specifies the name of an element. “Employee”in our example.
+name: This attribute specifies the name of an element. “Employee”in our example.
 
-<2> element: Defines the XML-Elements
+`element:` Defines the XML-Elements
 
-<3> sequence: Definiert eine geordnete Struktur mit fester Reihenfolge. Die Alternative wäre all.
+`sequence:` Definiert eine geordnete Struktur mit fester Reihenfolge. Die Alternative wäre all.
 
-<4> minOccurs: This attribute will specify how many elements at a Minimum will be allowed. The default is ‘0″, which means it is an optional element.
+`minOccurs:` This attribute will specify how many elements at a Minimum will be allowed. The default is ‘0″, which means it is an optional element.
 
-maxOccurs: This attribute will specify how many elements at a Maximum will be allowed in an XML document. Assume that maxOccurs attribute carries a value of “2”. This would mean the “Employee” element should NOT be specified more than twice.
+`maxOccurs:` This attribute will specify how many elements at a Maximum will be allowed in an XML document. Assume that maxOccurs attribute carries a value of “2”. This would mean the “Employee” element should NOT be specified more than twice.
 
 To summarize, let’s say the minOccurs is “1” and maxOccurs is “2” for the “Employee” element. This means there should be at least one instance of the “Employee” element in the XML document, but the total number of instances of “Employee” element shouldn’t exceed two.
 
@@ -154,11 +174,11 @@ To allow the “Employee” element to be specified an unlimited number of times
 
 The following example states that the “Employee” element can occur an unlimited number of times in an XML document.
 
-<5> attribute: Defines attributes
+`attribute:` Defines attributes
 
 xs:string, xs:positiveInteger, xs:date: predefined data types
 
-complexType: Definiert kompliziertere Elemente, z.B. Elemente mit Kindelementen und/oder Attributen. Beachten Sie, dass auch das leere firma-Element als complexType definiert wird, allerdings als leerer. Falls außer Kindelementen und/oder Attributen auch ein Elementinhalt erlaubt sein soll, muss mixed="true" gesetzt werden.
+`complexType:` Definiert kompliziertere Elemente, z.B. Elemente mit Kindelementen und/oder Attributen. Beachten Sie, dass auch das leere firma-Element als complexType definiert wird, allerdings als leerer. Falls außer Kindelementen und/oder Attributen auch ein Elementinhalt erlaubt sein soll, muss mixed="true" gesetzt werden.
 
 Die Kindselemente werden nicht lokal definiert, sondern per ref referenziert.
 
